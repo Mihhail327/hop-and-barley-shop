@@ -1,0 +1,28 @@
+# Django
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+media/
+staticfiles/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+env/
+venv/
+
+# Docker
+.docker/
+# Если база данных сохраняет данные в папку в проекте:
+pgdata/
+
+# IDE
+.idea/
+.vscode/
+
+# OS
+.DS_Store
+thumbs.db

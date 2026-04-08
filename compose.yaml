@@ -1,0 +1,28 @@
+version: '3.9'
+
+services:
+  db:
+    image: postgres:15
+
+    environment:
+      - POSTGRES_DB=myshop_db
+      - POSTGRES_USER=myshop_user
+      - POSTGRES_PASSWORD=myshop_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  web:
+    build: .
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgres://myshop_user:myshop_password@db:5432/myshop_db
+    depends_on:
+      - db
+
+volumes:
+  postgres_data:

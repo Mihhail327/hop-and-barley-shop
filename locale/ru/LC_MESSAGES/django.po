@@ -1,0 +1,206 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-04-12 22:51+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#: templates/base.html:52
+msgid "Products"
+msgstr "Товары"
+
+#: templates/base.html:53
+msgid "Guides & Recipes"
+msgstr "Гайды и Рецепты"
+
+#: templates/base.html:54 templates/base.html:87
+msgid "Community"
+msgstr "Сообщество"
+
+#: templates/base.html:55 templates/base.html:88
+msgid "Resources"
+msgstr "Ресурсы"
+
+#: templates/base.html:56 templates/base.html:85
+msgid "Contact"
+msgstr "Контакты"
+
+#: templates/base.html:61
+msgid "Sign in"
+msgstr "Войти"
+
+#: templates/base.html:62 templates/register.html:27 templates/register.html:61
+msgid "Register"
+msgstr "Регистрация"
+
+#: templates/base.html:86
+msgid "FAQ"
+msgstr "ЧАВО"
+
+#: templates/base.html:89
+msgid "License"
+msgstr "Лицензия"
+
+#: templates/base.html:92
+msgid "© Hop & Barley 2025. All rights reserved"
+msgstr "© Hop & Barley 2025. Все права защищены"
+
+#: templates/home.html:4
+msgid "Home | Hop & Barley"
+msgstr "Главная | Hop & Barley"
+
+#: templates/home.html:8
+msgid "Hops Fields"
+msgstr "Хмелевые поля"
+
+#: templates/home.html:11
+msgid "Craft Your Perfect Brew"
+msgstr "Свари свой идеальный напиток"
+
+#: templates/home.html:12
+msgid "Premium ingredients and expert supplies for the dedicated brewer."
+msgstr "Премиальные ингредиенты и оборудование для настоящих пивоваров."
+
+#: templates/home.html:14
+msgid "Explore Catalog"
+msgstr "Перейти в каталог"
+
+#: templates/home.html:23
+msgid "Premium Quality"
+msgstr "Премиум Качество"
+
+#: templates/home.html:24
+msgid "Sourced directly from the best farms."
+msgstr "Напрямую с лучших ферм."
+
+#: templates/home.html:28
+msgid "Fast Delivery"
+msgstr "Быстрая Доставка"
+
+#: templates/home.html:29
+msgid "Fresh ingredients at your door, fast."
+msgstr "Свежие ингредиенты быстро и прямо к вашей двери."
+
+#: templates/home.html:33
+msgid "Expert Guides"
+msgstr "Гайды от Экспертов"
+
+#: templates/home.html:34
+msgid "Recipes and tips from master brewers."
+msgstr "Рецепты и советы от мастеров-пивоваров."
+
+#: templates/home.html:39
+msgid "Shop by Category"
+msgstr "Смотреть по категориям"
+
+#: templates/home.html:44 templates/products/product_list.html:18
+msgid "Hops"
+msgstr "Хмель"
+
+#: templates/home.html:50 templates/products/product_list.html:22
+msgid "Malts"
+msgstr "Солод"
+
+#: templates/home.html:56 templates/products/product_list.html:26
+msgid "Yeast"
+msgstr "Дрожжи"
+
+#: templates/products/product_detail.html:24
+msgid "per unit"
+msgstr "за единицу"
+
+#: templates/products/product_detail.html:35
+msgid "Add to Cart"
+msgstr "В корзину"
+
+#: templates/products/product_detail.html:44
+msgid "Technical Specifications"
+msgstr "Технические характеристики"
+
+#: templates/products/product_detail.html:53
+msgid "Specifications to be clarified"
+msgstr "Характеристики уточняются"
+
+#: templates/products/product_detail.html:61
+msgid "Latest reviews"
+msgstr "Последние отзывы"
+
+#: templates/products/product_detail.html:68
+msgid "Great Quality"
+msgstr "Отличное качество"
+
+#: templates/products/product_detail.html:69
+msgid "Excellent product, works exactly as expected. Highly recommend."
+msgstr "Отличный продукт, работает как ожидалось. Настоятельно рекомендую."
+
+#: templates/products/product_detail.html:72
+msgid "User avatar"
+msgstr "Аватар пользователя"
+
+#: templates/products/product_list.html:4
+msgid "Catalog | Hop & Barley"
+msgstr "Каталог товаров | Hop & Barley"
+
+#: templates/products/product_list.html:10
+msgid "Keywords"
+msgstr "Ключевые слова"
+
+#: templates/products/product_list.html:16
+msgid "Product Type"
+msgstr "Тип продукта"
+
+#: templates/products/product_list.html:30
+msgid "Adjuncts"
+msgstr "Добавки"
+
+#: templates/products/product_list.html:41
+#: templates/products/product_list.html:42
+msgid "Search"
+msgstr "Поиск"
+
+#: templates/products/product_list.html:47
+msgid "New"
+msgstr "Новые"
+
+#: templates/products/product_list.html:48
+msgid "Price ascending"
+msgstr "Сначала дешевле"
+
+#: templates/products/product_list.html:49
+msgid "Price descending"
+msgstr "Сначала дороже"
+
+#: templates/products/product_list.html:50
+msgid "Rating"
+msgstr "По рейтингу"
+
+#: templates/products/product_list.html:72
+msgid "Products not found."
+msgstr "Товары не найдены."
+
+#: templates/products/product_list.html:78
+msgid "Previous"
+msgstr "Назад"
+
+#: templates/products/product_list.html:88
+msgid "Next"
+msgstr "Вперед"
+
+#: templates/register.html:41
+msgid "Username"
+msgstr "Имя пользователя"

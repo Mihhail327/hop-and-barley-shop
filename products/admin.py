@@ -1,15 +1,16 @@
 from django.contrib import admin
+from modeltranslation.admin import TranslationAdmin
 from .models import Product, Category
 
 @admin.register(Category)
-class CategoryAdmin(admin.ModelAdmin):
+class CategoryAdmin(TranslationAdmin):
     list_display = ('name', 'slug', 'parent', 'created_at')
     prepopulated_fields = {'slug': ('name',)}
     search_fields = ('name',)
     list_filter = ('created_at',)
 
 @admin.register(Product)
-class ProductAdmin(admin.ModelAdmin):
+class ProductAdmin(TranslationAdmin):
     list_display = ('name', 'slug', 'price', 'category', 'is_active', 'stock', 'created_at')
     prepopulated_fields = {'slug': ('name',)}
     search_fields = ('name', 'description')

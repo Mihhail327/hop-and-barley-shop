@@ -8,11 +8,12 @@ ENV POETRY_VIRTUALENVS_CREATE=false
 
 WORKDIR /app
 
-# Устанавливаем системные зависимости для psycopg2 и сборки пакетов
+# Устанавливаем системные зависимости
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
     libpq-dev \
     curl \
+    gettext \
     && rm -rf /var/lib/apt/lists/*
 
 # Устанавливаем Poetry

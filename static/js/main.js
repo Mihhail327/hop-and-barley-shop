@@ -1,5 +1,32 @@
 document.addEventListener('DOMContentLoaded', function() {
-
+    // --- Theme Toggle Logic ---
+    const themeToggleBtn = document.getElementById('theme-toggle');
+    const currentTheme = localStorage.getItem('theme') || 'dark';
+    
+    if (currentTheme === 'light') {
+        document.body.setAttribute('data-theme', 'light');
+    }
+    
+    if (themeToggleBtn) {
+        const themeIcon = themeToggleBtn.querySelector('i');
+        // Initial icon update
+        if (currentTheme === 'light') {
+            themeIcon.classList.replace('fa-moon', 'fa-sun');
+        }
+        
+        themeToggleBtn.addEventListener('click', function() {
+            const isLight = document.body.getAttribute('data-theme') === 'light';
+            if (isLight) {
+                document.body.removeAttribute('data-theme');
+                localStorage.setItem('theme', 'dark');
+                themeIcon.classList.replace('fa-sun', 'fa-moon');
+            } else {
+                document.body.setAttribute('data-theme', 'light');
+                localStorage.setItem('theme', 'light');
+                themeIcon.classList.replace('fa-moon', 'fa-sun');
+            }
+        });
+    }
     // --- General logic for all pages (Login/Logout Simulation) ---
     const loginForm = document.getElementById('login-form');
     const logoutButton = document.getElementById('logout-button');
@@ -28,8 +55,71 @@ document.addEventListener('DOMContentLoaded', function() {
     checkLoginStatus();
 
 
-    // --- Logic for the Main Page (home.html) ---
+    // --- Logic for the Main Page and Catalog (Catalog Filtering) ---
     const homePageContent = document.querySelector('.main-content-grid');
+    
+    // Core AJAX Fetch logic
+    function fetchProducts(page = 1) {
+        // Base URL relies on current locale code, so relative '/catalog/' usually redirects or we can use pathname
+        // Safer to use current path if we are already in catalog, otherwise navigate there.
+        let catalogBaseUrl = window.location.pathname;
+        if (!catalogBaseUrl.includes('/catalog/')) {
+             // Assuming default language prefix might be there, just append catalog or rely on Django resolving
+             catalogBaseUrl = '/catalog/'; 
+        }
+
+        const queryParams = new URLSearchParams();
+        
+        const searchInput = document.getElementById('search-input');
+        if (searchInput && searchInput.value) {
+            queryParams.set('q', searchInput.value);
+        }
+
+        const checkedTypes = Array.from(document.querySelectorAll('.checkbox-group input[type="checkbox"]:checked')).map(cb => cb.dataset.keyword);
+        checkedTypes.forEach(t => queryParams.append('type', t));
+
+        const activeSortBtn = document.querySelector('.sort-button.active-sort');
+        if (activeSortBtn && activeSortBtn.dataset.sort) {
+            queryParams.set('sort', activeSortBtn.dataset.sort);
+        }
+
+        if (page > 1) {
+            queryParams.set('page', page);
+        }
+
+        const url = `${catalogBaseUrl}?${queryParams.toString()}`;
+        
+        if (window.location.pathname.includes('/catalog/')) {
+             window.history.pushState({}, '', url);
+        } else {
+             window.location.href = url;
+             return;
+        }
+
+        const container = document.getElementById('product-list-container');
+        if (container) {
+             container.style.opacity = '0.5';
+             container.style.pointerEvents = 'none';
+        }
+
+        fetch(url, { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
+            .then(r => r.text())
+            .then(html => {
+                if (container) {
+                    container.innerHTML = html;
+                    container.style.opacity = '1';
+                    container.style.pointerEvents = 'auto';
+                }
+            })
+            .catch(error => {
+                console.error("Error fetching products:", error);
+                if (container) {
+                    container.style.opacity = '1';
+                    container.style.pointerEvents = 'auto';
+                }
+            });
+    }
+
     if (homePageContent) {
         // 1. Sort Options Logic
         const sortButtons = document.querySelectorAll('.sort-options .sort-button');
@@ -37,28 +127,46 @@ document.addEventListener('DOMContentLoaded', function() {
             button.addEventListener('click', function() {
                 sortButtons.forEach(btn => btn.classList.remove('active-sort'));
                 this.classList.add('active-sort');
+                fetchProducts();
             });
         });
 
-        // 2. Pagination Logic
-        const paginationList = document.querySelector('.pagination-list');
-        if (paginationList) {
-            const paginationLinks = paginationList.querySelectorAll('.pagination__link');
-            paginationLinks.forEach(link => {
-                link.addEventListener('click', function(event) {
-                    event.preventDefault();
-                    paginationLinks.forEach(lnk => lnk.classList.remove('active'));
-                    this.classList.add('active');
-                });
+        // 2. Search Box Logic
+        const searchButton = document.getElementById('search-button');
+        const searchInput = document.getElementById('search-input');
+        
+        if (searchButton) {
+            searchButton.addEventListener('click', () => fetchProducts());
+        }
+        if (searchInput) {
+            let debounceTimer;
+            searchInput.addEventListener('input', () => {
+                clearTimeout(debounceTimer);
+                debounceTimer = setTimeout(() => fetchProducts(), 500);
+            });
+            searchInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    clearTimeout(debounceTimer);
+                    fetchProducts();
+                }
             });
         }
 
-        // 3. Filter Logic (Keywords and Checkboxes)
+        // 3. Pagination Delegation
+        homePageContent.addEventListener('click', function(e) {
+            const pageLink = e.target.closest('.pagination__link');
+            if (pageLink) {
+                e.preventDefault();
+                const page = pageLink.dataset.page;
+                if (page) fetchProducts(page);
+            }
+        });
+
+        // 4. Filter Logic (Keywords and Checkboxes)
         const keywordsList = document.querySelector('.keywords-list');
         const checkboxes = document.querySelectorAll('.checkbox-group input[type="checkbox"]');
 
         if (keywordsList && checkboxes.length > 0) {
-
             checkboxes.forEach(checkbox => {
                 checkbox.addEventListener('change', function() {
                     const keyword = this.dataset.keyword;
@@ -72,10 +180,9 @@ document.addEventListener('DOMContentLoaded', function() {
                         }
                     } else {
                         const tagToRemove = document.querySelector(`.keyword-tag[data-keyword="${keyword}"]`);
-                        if (tagToRemove) {
-                            tagToRemove.remove();
-                        }
+                        if (tagToRemove) tagToRemove.remove();
                     }
+                    fetchProducts();
                 });
             });
 
@@ -85,10 +192,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     const keywordTag = keywordIcon.closest('.keyword-tag');
                     const keywordText = keywordTag.dataset.keyword;
                     const checkbox = document.querySelector(`.checkbox-container input[data-keyword="${keywordText}"]`);
-                    if (checkbox) {
-                        checkbox.checked = false;
-                    }
+                    if (checkbox) checkbox.checked = false;
                     keywordTag.remove();
+                    fetchProducts();
                 }
             });
         }

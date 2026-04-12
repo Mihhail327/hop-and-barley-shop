@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static i18n %}
+
+{% block title %}{% trans "Catalog | Hop & Barley" %}{% endblock %}
+
+{% block content %}
+<div class="container main-content-grid" style="padding-top: 64px;">
+    <aside class="sidebar filter-menu">
+        <div class="sidebar__section">
+            <h3 class="section-title">{% trans "Keywords" %}</h3>
+            <div class="keywords-list">
+            </div>
+        </div>
+
+        <div class="sidebar__section">
+            <h3 class="section-title">{% trans "Product Type" %}</h3>
+            <div class="checkbox-group">
+                <label class="checkbox-container">{% trans "Hops" %}
+                    <input type="checkbox" data-keyword="Hops">
+                    <span class="checkmark"></span>
+                </label>
+                <label class="checkbox-container">{% trans "Malts" %}
+                    <input type="checkbox" data-keyword="Malts">
+                    <span class="checkmark"></span>
+                </label>
+                <label class="checkbox-container">{% trans "Yeast" %}
+                    <input type="checkbox" data-keyword="Yeast">
+                    <span class="checkmark"></span>
+                </label>
+                <label class="checkbox-container">{% trans "Adjuncts" %}
+                    <input type="checkbox" data-keyword="Adjuncts">
+                    <span class="checkmark"></span>
+                </label>
+            </div>
+        </div>
+    </aside>
+
+    <section class="products-area product-grid-section">
+        <div class="search-sort-bar">
+            <div class="search-input-wrapper">
+                <input type="text" placeholder="{% trans 'Search' %}" class="search-input" id="search-input">
+                <button class="search-button" aria-label="{% trans 'Search' %}" id="search-button">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+            </div>
+            <div class="sort-options">
+                <button class="sort-button active-sort" data-sort="new"><span>{% trans "New" %}</span></button>
+                <button class="sort-button" data-sort="price_asc">{% trans "Price ascending" %}</button>
+                <button class="sort-button" data-sort="price_desc">{% trans "Price descending" %}</button>
+            </div>
+        </div>
+
+        <div id="product-list-container">
+            {% include 'products/includes/product_grid.html' %}
+        </div>
+    </section>
+</div>
+{% endblock %}

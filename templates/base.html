@@ -1,0 +1,98 @@
+{% load static %}
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Hop & Barley{% endblock %}</title>
+
+    <!-- Google Fonts & Font Awesome -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+          integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="{% static 'css/main.css' %}?v={% now 'U' %}">
+</head>
+<body>
+<!-- Header -->
+<header>
+    <div class="header-container">
+        <a href="{% url 'home' %}" class="header__logo">
+            <img src="{% static 'img/logo.svg' %}" alt="Hop & Barley Logo">
+            <p class="logo-text">Hop & Barley</p>
+        </a>
+        <div style="display: flex; align-items: center; gap: 16px;">
+            <form action="{% url 'set_language' %}" method="post" style="display: inline;">
+                {% csrf_token %}
+                <input name="next" type="hidden" value="{{ request.get_full_path }}">
+                <div class="language-selector">
+                    <i class="fa-solid fa-globe globe-icon"></i>
+                    <select name="language" onchange="this.form.submit()" class="language-select">
+                        {% get_current_language as LANGUAGE_CODE %}
+                        {% get_available_languages as LANGUAGES %}
+                        {% for lang in LANGUAGES %}
+                        <option value="{{ lang.0 }}" {% if lang.0 == LANGUAGE_CODE %}selected{% endif %}>
+                            {{ lang.0|upper }} - {{ lang.1 }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </form>
+            <button id="theme-toggle" aria-label="Toggle Theme" style="background:none; border:none; color: var(--black-main); cursor: pointer; font-size: 20px;">
+                <i class="fa-solid fa-moon"></i>
+            </button>
+        </div>
+        <nav class="header__nav">
+            <ul>
+                <li><a href="{% url 'products:product_list' %}">{% trans "Products" %}</a></li>
+                <li><a href="#">{% trans "Guides & Recipes" %}</a></li>
+                <li><a href="#">{% trans "Community" %}</a></li>
+                <li><a href="#">{% trans "Resources" %}</a></li>
+                <li><a href="#">{% trans "Contact" %}</a></li>
+            </ul>
+        </nav>
+
+        <div class="header__auth-buttons" id="auth-guest">
+            <a href="{% url 'users:login' %}" class="button button--secondary">{% trans "Sign in" %}</a>
+            <a href="{% url 'users:register' %}" class="button button--primary">{% trans "Register" %}</a>
+        </div>
+        <div class="header__user-actions" id="auth-user">
+            <a href="#" class="user-icon" aria-label="My Account">
+                <img src="{% static 'img/icons/User_alt.svg' %}" alt="User Account">
+            </a>
+            <a href="#" class="cart-icon" aria-label="Shopping Cart">
+                <img src="{% static 'img/icons/Shopping_bag.svg' %}" alt="Shopping Cart">
+            </a>
+        </div>
+    </div>
+</header>
+
+<!-- Main Content -->
+<main {% block main_class %}{% endblock %}>
+    {% block content %}{% endblock %}
+</main>
+
+<!-- Footer -->
+<footer>
+    <img src="{% static 'img/background/image-footer.svg' %}" alt="Hop & Barley Hops Logo" class="footer__hops-logo">
+    <nav class="footer__nav">
+        <ul>
+            <li><a href="#">{% trans "Contact" %}</a></li>
+            <li><a href="#">{% trans "FAQ" %}</a></li>
+            <li><a href="#">{% trans "Community" %}</a></li>
+            <li><a href="#">{% trans "Resources" %}</a></li>
+            <li><a href="#">{% trans "License" %}</a></li>
+        </ul>
+    </nav>
+    <p class="footer__copyright">{% trans "© Hop & Barley 2025. All rights reserved" %}</p>
+</footer>
+
+<!-- JS -->
+<script src="{% static 'js/main.js' %}?v={% now 'U' %}"></script>
+</body>
+</html>

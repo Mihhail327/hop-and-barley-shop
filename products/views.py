@@ -1,15 +1,47 @@
 from django.shortcuts import render
+from django.views.generic import ListView, DetailView
+from django.db.models import Q
 from .models import Product
-from django.views.generic import ListView
 
 def index(request):
     products = Product.objects.all()
-    # Указываем home.html вместо index.html
-    return render(request, 'home.html', {'products': products})
+    return render(request, 'products/product_list.html', {'products': products})
 
 class ProductListView(ListView):
     model = Product
-    # Указываем home.html вместо products/product_list.html
-    template_name = 'home.html'
     context_object_name = 'products'
     paginate_by = 12
+
+    def get_template_names(self):
+        if self.request.headers.get('x-requested-with') == 'XMLHttpRequest':
+            return ['products/includes/product_grid.html']
+        return ['products/product_list.html']
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        
+        query = self.request.GET.get('q', '').strip()
+        if query:
+            queryset = queryset.filter(
+                Q(name__icontains=query) | Q(description__icontains=query)
+            )
+
+        types = self.request.GET.getlist('type')
+        if types:
+            queryset = queryset.filter(category__name__in=types)
+
+        sort = self.request.GET.get('sort', 'new')
+        if sort == 'price_asc':
+            queryset = queryset.order_by('price')
+        elif sort == 'price_desc':
+            queryset = queryset.order_by('-price')
+        else:
+            queryset = queryset.order_by('-created_at')
+
+        return queryset
+
+class ProductDetailView(DetailView):
+    model = Product
+    # Используем новый шаблон детальной страницы
+    template_name = 'products/product_detail.html'
+    context_object_name = 'product'

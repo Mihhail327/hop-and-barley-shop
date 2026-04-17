@@ -7,73 +7,79 @@
 
 {% block content %}
 <div class="container">
-  <section class="product-details-section">
-    <div class="product-image-container">
-      {% if product.image %}
-        {# Используем .url для файлов из media #}
-        <img src="{{ product.image.url }}" alt="{{ product.name }}" class="product-image">
-      {% else %}
-        <img src="{% static 'img/logo.svg' %}" alt="{{ product.name }}" class="product-image" style="object-fit: contain; padding: 40px;">
-      {% endif %}
-    </div>
-    <div class="product-info-column">
-      <div class="product-title-price">
-        {# Убрали _ru, так как в JSON поля называются name #}
-        <h1 class="product-name">{{ product.name }}</h1>
-        <div class="price-section">
-          <span class="price-tag">{% trans "per unit" %}</span>
-          <p class="product-price">${{ product.price }}</p>
+    <section class="product-details-section">
+        <div class="product-image-container">
+            {% if product.image %}
+            {# Используем .url для файлов из media #}
+            <img src="{{ product.image.url }}" alt="{{ product.name }}" class="product-image">
+            {% else %}
+            <img src="{% static 'img/logo.svg' %}" alt="{{ product.name }}" class="product-image"
+                 style="object-fit: contain; padding: 40px;">
+            {% endif %}
         </div>
-      </div>
-      <div class="product-description">
-        {# Убрали _ru, так как в JSON поле description #}
-        <p>{{ product.description }}</p>
-      </div>
-      <div class="cart-controls">
-        <button class="button button--primary add-to-cart-button" id="add-to-cart-btn">
-          <i class="fa-solid fa-cart-shopping"></i>
-          <span>{% trans "Add to Cart" %}</span>
-        </button>
-      </div>
-    </div>
-  </section>
+        <div class="product-info-column">
+            <div class="product-title-price">
+                {# Убрали _ru, так как в JSON поля называются name #}
+                <h1 class="product-name">{{ product.name }}</h1>
+                <div class="price-section">
+                    <span class="price-tag">{% trans "per unit" %}</span>
+                    <p class="product-price">${{ product.price }}</p>
+                </div>
+            </div>
+            <div class="product-description">
+                {# Убрали _ru, так как в JSON поле description #}
+                <p>{{ product.description }}</p>
+            </div>
+            <div class="cart-controls">
+                <form action="{% url 'orders:cart_add' product.id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="button button--primary add-to-cart-button">
+                        <i class="fa-solid fa-cart-plus"></i> {% trans "Add to Cart" %}
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
 
-  <section class="accordion-section">
-    <div class="accordion-item">
-      <div class="accordion-title">
-        <h3>{% trans "Technical Specifications" %}</h3>
-        <i class="fa-solid fa-chevron-down accordion-icon"></i>
-      </div>
-      <div class="accordion-content">
-        <ul>
-          {# Выводим спецификации из твоего JSON-поля в базе #}
-          {% for key, value in product.specifications.items %}
-            <li><strong>{{ key }}:</strong> {{ value }}</li>
-          {% empty %}
-            <li>{% trans "Specifications to be clarified" %}</li>
-          {% endfor %}
-        </ul>
-      </div>
-    </div>
-  </section>
+    <section class="accordion-section">
+        <div class="accordion-item">
+            <div class="accordion-title">
+                <h3>{% trans "Technical Specifications" %}</h3>
+                <i class="fa-solid fa-chevron-down accordion-icon"></i>
+            </div>
+            <div class="accordion-content">
+                <ul>
+                    {# Выводим спецификации из твоего JSON-поля в базе #}
+                    {% for key, value in product.specifications.items %}
+                    <li><strong>{{ key }}:</strong> {{ value }}</li>
+                    {% empty %}
+                    <li>{% trans "Specifications to be clarified" %}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </section>
 
-  <section class="reviews-section">
-    <h2 class="reviews-title">{% trans "Latest reviews" %}</h2>
-    <div class="reviews-grid">
-      <div class="review-card">
-        <div class="review-rating">
-          <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+    <section class="reviews-section">
+        <h2 class="reviews-title">{% trans "Latest reviews" %}</h2>
+        <div class="reviews-grid">
+            <div class="review-card">
+                <div class="review-rating">
+                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                        class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                </div>
+                <div class="review-body">
+                    <h4 class="review-heading">{% trans "Great Quality" %}</h4>
+                    <p class="review-text">{% trans "Excellent product, works exactly as expected. Highly recommend."
+                        %}</p>
+                </div>
+                <div class="review-author">
+                    <img src="{% static 'img/avatars/avatar1.svg' %}" alt="{% trans 'User avatar' %}"
+                         class="author-avatar">
+                    <span class="author-name">HappyBrewer</span>
+                </div>
+            </div>
         </div>
-        <div class="review-body">
-          <h4 class="review-heading">{% trans "Great Quality" %}</h4>
-          <p class="review-text">{% trans "Excellent product, works exactly as expected. Highly recommend." %}</p>
-        </div>
-        <div class="review-author">
-          <img src="{% static 'img/avatars/avatar1.svg' %}" alt="{% trans 'User avatar' %}" class="author-avatar">
-          <span class="author-name">HappyBrewer</span>
-        </div>
-      </div>
-    </div>
-  </section>
+    </section>
 </div>
 {% endblock %}

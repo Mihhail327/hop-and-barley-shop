@@ -4,58 +4,83 @@
 {% block title %}{% trans "Home | Hop & Barley" %}{% endblock %}
 
 {% block content %}
-<section class="home-hero">
-    <img src="{% static 'img/background/hopfen-fields.jpg' %}" alt="{% trans 'Hops Fields' %}" class="home-hero__image">
-    <div class="home-hero__overlay"></div>
-    <div class="home-hero__content">
-        <h1 class="home-hero__title">{% trans "Craft Your Perfect Brew" %}</h1>
-        <p class="home-hero__subtitle">{% trans "Premium ingredients and expert supplies for the dedicated brewer." %}</p>
-        <a href="{% url 'products:product_list' %}" class="button button--primary home-hero__cta">
+<section class="relative h-[500px] w-full flex items-center justify-center overflow-hidden">
+    {# Изображение на заднем плане #}
+    <img src="{% static 'img/background/hopfen-fields.jpg' %}"
+         alt="{% trans 'Hops Fields' %}"
+         class="absolute inset-0 w-full h-full object-cover">
+
+    {# Затемняющий слой для читаемости текста #}
+    <div class="absolute inset-0 bg-slate-900/50"></div>
+
+    {# Контент Hero #}
+    <div class="relative z-10 text-center px-4 max-w-4xl">
+        <h1 class="text-4xl md:text-6xl font-bold text-white mb-6 tracking-tight">
+            {% trans "Craft Your Perfect Brew" %}
+        </h1>
+        <p class="text-lg md:text-xl text-slate-200 mb-10">
+            {% trans "Premium ingredients and expert supplies for the dedicated brewer." %}
+        </p>
+        <a href="{% url 'products:product_list' %}"
+           class="inline-block bg-hop-green hover:bg-hop-emerald text-hop-dark font-bold py-4 px-10 rounded-2xl transition-all transform hover:-translate-y-1 shadow-lg">
             {% trans "Explore Catalog" %}
         </a>
     </div>
 </section>
 
-<div class="container home-content">
-    <section class="home-features">
-        <div class="feature-item">
-            <i class="fa-solid fa-medal feature-item__icon"></i>
-            <h3 class="feature-item__title">{% trans "Premium Quality" %}</h3>
-            <p class="feature-item__desc">{% trans "Sourced directly from the best farms." %}</p>
+<div class="container mx-auto px-6 py-16">
+
+    <section class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-24">
+        <div class="glass-card p-8 text-center flex flex-col items-center">
+            <div class="w-16 h-16 bg-hop-green/20 rounded-full flex items-center justify-center mb-6 text-hop-green text-3xl">
+                <i class="fa-solid fa-medal"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-3 dark:text-white">{% trans "Premium Quality" %}</h3>
+            <p class="text-slate-500 dark:text-slate-400">{% trans "Sourced directly from the best farms." %}</p>
         </div>
-        <div class="feature-item">
-            <i class="fa-solid fa-truck-fast feature-item__icon"></i>
-            <h3 class="feature-item__title">{% trans "Fast Delivery" %}</h3>
-            <p class="feature-item__desc">{% trans "Fresh ingredients at your door, fast." %}</p>
+
+        <div class="glass-card p-8 text-center flex flex-col items-center">
+            <div class="w-16 h-16 bg-hop-green/20 rounded-full flex items-center justify-center mb-6 text-hop-green text-3xl">
+                <i class="fa-solid fa-truck-fast"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-3 dark:text-white">{% trans "Fast Delivery" %}</h3>
+            <p class="text-slate-500 dark:text-slate-400">{% trans "Fresh ingredients at your door, fast." %}</p>
         </div>
-        <div class="feature-item">
-            <i class="fa-solid fa-book-open reader feature-item__icon"></i>
-            <h3 class="feature-item__title">{% trans "Expert Guides" %}</h3>
-            <p class="feature-item__desc">{% trans "Recipes and tips from master brewers." %}</p>
+
+        <div class="glass-card p-8 text-center flex flex-col items-center">
+            <div class="w-16 h-16 bg-hop-green/20 rounded-full flex items-center justify-center mb-6 text-hop-green text-3xl">
+                <i class="fa-solid fa-book-open"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-3 dark:text-white">{% trans "Expert Guides" %}</h3>
+            <p class="text-slate-500 dark:text-slate-400">{% trans "Recipes and tips from master brewers." %}</p>
         </div>
     </section>
 
-    <section class="home-categories">
-        <h2 class="section-heading">{% trans "Shop by Category" %}</h2>
-        <div class="categories-grid">
-            <a href="{% url 'products:product_list' %}?type=hops" class="category-card">
-                <div class="category-card__glass">
-                    <i class="fa-solid fa-leaf category-card__icon"></i>
-                    <h3 class="category-card__title">{% trans "Hops" %}</h3>
+    <section>
+        <h2 class="text-3xl font-bold mb-10 text-center dark:text-white">{% trans "Shop by Category" %}</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+            <a href="{% url 'products:product_list' %}?type=hops" class="group relative h-48 overflow-hidden rounded-2xl glass-card flex items-center justify-center transition-all hover:border-hop-green">
+                <div class="text-center transition-transform group-hover:scale-110">
+                    <i class="fa-solid fa-leaf text-4xl text-hop-green mb-3"></i>
+                    <h3 class="text-2xl font-bold dark:text-white">{% trans "Hops" %}</h3>
                 </div>
             </a>
-            <a href="{% url 'products:product_list' %}?type=malts" class="category-card">
-                <div class="category-card__glass">
-                    <i class="fa-solid fa-seedling category-card__icon"></i>
-                    <h3 class="category-card__title">{% trans "Malts" %}</h3>
+
+            <a href="{% url 'products:product_list' %}?type=malts" class="group relative h-48 overflow-hidden rounded-2xl glass-card flex items-center justify-center transition-all hover:border-hop-green">
+                <div class="text-center transition-transform group-hover:scale-110">
+                    <i class="fa-solid fa-seedling text-4xl text-hop-green mb-3"></i>
+                    <h3 class="text-2xl font-bold dark:text-white">{% trans "Malts" %}</h3>
                 </div>
             </a>
-            <a href="{% url 'products:product_list' %}?type=yeast" class="category-card">
-                <div class="category-card__glass">
-                    <i class="fa-solid fa-flask category-card__icon"></i>
-                    <h3 class="category-card__title">{% trans "Yeast" %}</h3>
+
+            <a href="{% url 'products:product_list' %}?type=yeast" class="group relative h-48 overflow-hidden rounded-2xl glass-card flex items-center justify-center transition-all hover:border-hop-green">
+                <div class="text-center transition-transform group-hover:scale-110">
+                    <i class="fa-solid fa-flask text-4xl text-hop-green mb-3"></i>
+                    <h3 class="text-2xl font-bold dark:text-white">{% trans "Yeast" %}</h3>
                 </div>
             </a>
+
         </div>
     </section>
 </div>

@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}{% trans "Order Created" %}{% endblock %}
+
+{% block content %}
+<div class="container" style="text-align: center; padding: 100px 20px;">
+    <i class="fa-solid fa-circle-check" style="font-size: 80px; color: #2ecc71; margin-bottom: 20px;"></i>
+    <h1>{% trans "Thank you for your order!" %}</h1>
+    <p>{% trans "Your order number is" %} <strong>#{{ order.id }}</strong>.</p>
+    <p>{% trans "We will contact you shortly for delivery details." %}</p>
+    
+    <a href="{% url 'products:product_list' %}" class="button button--primary" style="margin-top: 30px; display: inline-block;">
+        {% trans "Continue Shopping" %}
+    </a>
+</div>
+{% endblock %}

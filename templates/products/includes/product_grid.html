@@ -1,48 +1,48 @@
 {% load static i18n %}
-<div class="product-grid">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
     {% for product in products %}
-    <a href="{% url 'products:product_detail' product.slug %}" class="product-card-link">
-        <div class="product-card">
+    <a href="{% url 'products:product_detail' product.slug %}" class="block group">
+        <div class="glass-card p-4 flex flex-col gap-4 overflow-hidden h-full border border-black/5 dark:border-white/10 group-hover:-translate-y-2 group-hover:border-hop-green group-hover:shadow-2xl group-hover:shadow-hop-green/20 transition-all duration-300">
             {% if product.image %}
-            <img src="{{ product.image.url }}" alt="{{ product.name }}" class="product-card__image">
+            <img src="{{ product.image.url }}" alt="{{ product.name }}" class="w-full h-[247px] object-cover rounded-[8px]">
             {% else %}
-            <img src="{% static 'img/logo.svg' %}" alt="{{ product.name }}" class="product-card__image" style="object-fit: contain; padding: 20px;">
+            <img src="{% static 'img/logo.svg' %}" alt="{{ product.name }}" class="w-full h-[247px] object-contain p-5 bg-white/5 rounded-[8px]">
             {% endif %}
 
-            <div class="product-card__info">
-                <h4 class="product-card__name">{{ product.name }}</h4>
-                <p class="product-card__price">${{ product.price }}</p>
-                <p class="product-card__description">{{ product.description|truncatechars:50 }}</p>
+            <div class="flex flex-col gap-2">
+                <h4 class="text-base font-semibold text-slate-900 dark:text-white line-clamp-2 leading-tight">{{ product.name }}</h4>
+                <p class="text-base font-bold text-hop-emerald">${{ product.price }}</p>
+                <p class="text-sm text-slate-500 dark:text-slate-400 line-clamp-2 leading-snug">{{ product.description|truncatechars:50 }}</p>
             </div>
         </div>
     </a>
     {% empty %}
-    <p style="grid-column: 1 / -1; text-align: center; color: var(--text-muted);">{% trans "Products not found." %}</p>
+    <p class="col-span-full text-center text-slate-500 py-10 text-lg">{% trans "Products not found." %}</p>
     {% endfor %}
 </div>
 
 {% if is_paginated %}
-<div class="pagination">
+<div class="w-full mt-12 glass-card p-6 flex flex-wrap items-center justify-center gap-2 sm:gap-4 border border-black/5 dark:border-white/10">
     {% if page_obj.has_previous %}
-    <a href="?page={{ page_obj.previous_page_number }}" class="pagination__link pagination__link--prev" data-page="{{ page_obj.previous_page_number }}">
+    <a href="?page={{ page_obj.previous_page_number }}" class="flex items-center gap-2 px-3 py-2 sm:px-4 sm:py-2 rounded-xl text-slate-500 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200 dark:hover:bg-white/10 transition-colors font-medium pagination__link" data-page="{{ page_obj.previous_page_number }}">
         <i class="fa-solid fa-arrow-left"></i>
-        <span>{% trans "Previous" %}</span>
+        <span class="hidden sm:inline">{% trans "Previous" %}</span>
     </a>
     {% endif %}
     
-    <div class="pagination-list">
+    <div class="flex items-center gap-2">
         {% for num in page_obj.paginator.page_range %}
             {% if page_obj.number == num %}
-                <a href="?page={{ num }}" class="pagination__link active" data-page="{{ num }}">{{ num }}</a>
+                <a href="?page={{ num }}" class="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold transition-all shadow-md pagination__link active" data-page="{{ num }}">{{ num }}</a>
             {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
-                <a href="?page={{ num }}" class="pagination__link" data-page="{{ num }}">{{ num }}</a>
+                <a href="?page={{ num }}" class="w-10 h-10 flex items-center justify-center rounded-xl text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-white/10 font-bold transition-colors pagination__link" data-page="{{ num }}">{{ num }}</a>
             {% endif %}
         {% endfor %}
     </div>
 
     {% if page_obj.has_next %}
-    <a href="?page={{ page_obj.next_page_number }}" class="pagination__link pagination__link--next" data-page="{{ page_obj.next_page_number }}">
-        <span>{% trans "Next" %}</span>
+    <a href="?page={{ page_obj.next_page_number }}" class="flex items-center gap-2 px-3 py-2 sm:px-4 sm:py-2 rounded-xl text-slate-500 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200 dark:hover:bg-white/10 transition-colors font-medium pagination__link" data-page="{{ page_obj.next_page_number }}">
+        <span class="hidden sm:inline">{% trans "Next" %}</span>
         <i class="fa-solid fa-arrow-right"></i>
     </a>
     {% endif %}

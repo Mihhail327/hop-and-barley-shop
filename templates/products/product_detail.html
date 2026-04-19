@@ -3,37 +3,33 @@
 
 {% block title %}{{ product.name }} | Hop & Barley{% endblock %}
 
-{% block main_class %}class="page-product"{% endblock %}
-
 {% block content %}
-<div class="container">
-    <section class="product-details-section">
-        <div class="product-image-container">
+<div class="w-full max-w-[1312px] mx-auto py-16 px-6 lg:px-8 flex flex-col gap-16 page-product">
+    <section class="flex flex-col lg:flex-row gap-12 lg:gap-16">
+        <div class="w-full lg:w-1/2 glass-card p-6 flex items-center justify-center shrink-0 border border-black/5 dark:border-white/10">
             {% if product.image %}
-            {# Используем .url для файлов из media #}
-            <img src="{{ product.image.url }}" alt="{{ product.name }}" class="product-image">
+            <img src="{{ product.image.url }}" alt="{{ product.name }}" class="w-full h-auto object-cover rounded-xl shadow-lg">
             {% else %}
-            <img src="{% static 'img/logo.svg' %}" alt="{{ product.name }}" class="product-image"
-                 style="object-fit: contain; padding: 40px;">
+            <img src="{% static 'img/logo.svg' %}" alt="{{ product.name }}" class="w-1/2 h-auto object-contain p-10 opacity-50">
             {% endif %}
         </div>
-        <div class="product-info-column">
-            <div class="product-title-price">
-                {# Убрали _ru, так как в JSON поля называются name #}
-                <h1 class="product-name">{{ product.name }}</h1>
-                <div class="price-section">
-                    <span class="price-tag">{% trans "per unit" %}</span>
-                    <p class="product-price">${{ product.price }}</p>
+        <div class="flex flex-col gap-8 w-full">
+            <div class="flex flex-col gap-4">
+                <h1 class="text-4xl lg:text-5xl font-bold tracking-tight text-slate-900 dark:text-white leading-tight">{{ product.name }}</h1>
+                <div class="flex items-end gap-3 bg-white/50 dark:bg-slate-800/50 p-4 rounded-xl border border-slate-200 dark:border-slate-700 w-fit">
+                    <span class="text-sm font-medium text-slate-500 uppercase tracking-widest leading-none pb-1">{% trans "per unit" %}</span>
+                    <p class="text-3xl font-bold text-hop-emerald leading-none">${{ product.price }}</p>
                 </div>
             </div>
-            <div class="product-description">
-                {# Убрали _ru, так как в JSON поле description #}
+            
+            <div class="text-lg text-slate-600 dark:text-slate-300 leading-relaxed max-w-prose">
                 <p>{{ product.description }}</p>
             </div>
-            <div class="cart-controls">
+            
+            <div class="cart-controls mt-4">
                 <form action="{% url 'orders:cart_add' product.id %}" method="post">
                     {% csrf_token %}
-                    <button type="submit" class="button button--primary add-to-cart-button">
+                    <button type="submit" class="px-8 py-4 bg-gradient-to-r from-hop-green to-hop-emerald text-white text-lg font-bold rounded-xl shadow-lg shadow-hop-green/30 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-hop-green/40 transition-all border border-hop-green/50 flex items-center gap-3">
                         <i class="fa-solid fa-cart-plus"></i> {% trans "Add to Cart" %}
                     </button>
                 </form>
@@ -41,42 +37,42 @@
         </div>
     </section>
 
-    <section class="accordion-section">
-        <div class="accordion-item">
-            <div class="accordion-title">
-                <h3>{% trans "Technical Specifications" %}</h3>
-                <i class="fa-solid fa-chevron-down accordion-icon"></i>
+    <!-- Technical Specifications Accordion -->
+    <section>
+        <div class="accordion-item glass-card overflow-hidden border border-black/5 dark:border-white/10 group">
+            <div class="accordion-title p-6 flex justify-between items-center cursor-pointer hover:bg-black/5 dark:hover:bg-white/5 transition-colors" onclick="this.nextElementSibling.classList.toggle('hidden'); this.querySelector('.accordion-icon').classList.toggle('rotate-180')">
+                <h3 class="text-xl font-bold text-slate-900 dark:text-white">{% trans "Technical Specifications" %}</h3>
+                <i class="fa-solid fa-chevron-down accordion-icon text-slate-500 transition-transform duration-300"></i>
             </div>
-            <div class="accordion-content">
-                <ul>
-                    {# Выводим спецификации из твоего JSON-поля в базе #}
+            <div class="accordion-content p-6 pt-0 hidden border-t border-black/5 dark:border-white/10 mt-4">
+                <ul class="flex flex-col gap-3 text-slate-600 dark:text-slate-300 list-inside list-none">
                     {% for key, value in product.specifications.items %}
-                    <li><strong>{{ key }}:</strong> {{ value }}</li>
+                    <li class="flex items-center gap-3 p-3 bg-white/50 dark:bg-slate-800/30 rounded-lg border border-slate-200 dark:border-slate-700/50">
+                        <strong class="text-slate-800 dark:text-slate-200 whitespace-nowrap min-w-[150px]">{{ key }}:</strong> <span class="truncate">{{ value }}</span>
+                    </li>
                     {% empty %}
-                    <li>{% trans "Specifications to be clarified" %}</li>
+                    <li class="p-3">{% trans "Specifications to be clarified" %}</li>
                     {% endfor %}
                 </ul>
             </div>
         </div>
     </section>
 
-    <section class="reviews-section">
-        <h2 class="reviews-title">{% trans "Latest reviews" %}</h2>
-        <div class="reviews-grid">
-            <div class="review-card">
-                <div class="review-rating">
-                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
-                        class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+    <!-- Reviews Section -->
+    <section class="flex flex-col gap-8">
+        <h2 class="text-2xl font-bold text-slate-900 dark:text-white border-b border-black/5 dark:border-white/10 pb-4">{% trans "Latest reviews" %}</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="glass-card p-6 flex flex-col gap-4 border border-black/5 dark:border-white/10">
+                <div class="flex items-center gap-1 text-hop-emerald text-sm">
+                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
                 </div>
-                <div class="review-body">
-                    <h4 class="review-heading">{% trans "Great Quality" %}</h4>
-                    <p class="review-text">{% trans "Excellent product, works exactly as expected. Highly recommend."
-                        %}</p>
+                <div>
+                    <h4 class="text-lg font-bold text-slate-900 dark:text-white mb-2">{% trans "Great Quality" %}</h4>
+                    <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">{% trans "Excellent product, works exactly as expected. Highly recommend." %}</p>
                 </div>
-                <div class="review-author">
-                    <img src="{% static 'img/avatars/avatar1.svg' %}" alt="{% trans 'User avatar' %}"
-                         class="author-avatar">
-                    <span class="author-name">HappyBrewer</span>
+                <div class="flex items-center gap-3 mt-2 pt-4 border-t border-black/5 dark:border-white/10">
+                    <img src="{% static 'img/avatars/avatar1.svg' %}" alt="{% trans 'User avatar' %}" class="w-10 h-10 rounded-full border border-slate-200 dark:border-slate-700 bg-black/5 dark:bg-white/5">
+                    <span class="font-medium text-slate-800 dark:text-slate-200">HappyBrewer</span>
                 </div>
             </div>
         </div>

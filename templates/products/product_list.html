@@ -4,53 +4,57 @@
 {% block title %}{% trans "Catalog | Hop & Barley" %}{% endblock %}
 
 {% block content %}
-<div class="container main-content-grid" style="padding-top: 64px;">
-    <aside class="sidebar filter-menu">
-        <div class="sidebar__section">
-            <h3 class="section-title">{% trans "Keywords" %}</h3>
-            <div class="keywords-list">
+<div class="w-full max-w-[1312px] mx-auto pt-16 pb-16 px-6 lg:px-8 flex flex-col md:flex-row items-start gap-8">
+    <aside class="w-full md:w-[304px] glass-card p-6 flex flex-col gap-8 shrink-0">
+        <div class="flex flex-col gap-4">
+            <h3 class="text-base font-semibold text-slate-900 dark:text-white">{% trans "Keywords" %}</h3>
+            <div class="keywords-list flex flex-wrap gap-2">
             </div>
         </div>
 
-        <div class="sidebar__section">
-            <h3 class="section-title">{% trans "Product Type" %}</h3>
-            <div class="checkbox-group">
-                <label class="checkbox-container">{% trans "Hops" %}
-                    <input type="checkbox" data-keyword="Hops">
-                    <span class="checkmark"></span>
+        <div class="flex flex-col gap-4">
+            <h3 class="text-base font-semibold text-slate-900 dark:text-white">{% trans "Product Type" %}</h3>
+            <div class="checkbox-group flex flex-col gap-3">
+                <label class="checkbox-container relative flex items-center gap-3 cursor-pointer group">
+                    <input type="checkbox" data-keyword="Hops" class="peer appearance-none w-5 h-5 border border-black/10 dark:border-white/20 rounded bg-white/50 dark:bg-slate-800/50 checked:bg-hop-green checked:border-hop-green transition-colors cursor-pointer">
+                    <i class="fa-solid fa-check absolute left-1 text-white text-xs opacity-0 peer-checked:opacity-100 pointer-events-none"></i>
+                    <span class="text-slate-800 dark:text-slate-200 group-hover:text-hop-emerald transition-colors">{% trans "Hops" %}</span>
                 </label>
-                <label class="checkbox-container">{% trans "Malts" %}
-                    <input type="checkbox" data-keyword="Malts">
-                    <span class="checkmark"></span>
+                <label class="checkbox-container relative flex items-center gap-3 cursor-pointer group">
+                    <input type="checkbox" data-keyword="Malts" class="peer appearance-none w-5 h-5 border border-black/10 dark:border-white/20 rounded bg-white/50 dark:bg-slate-800/50 checked:bg-hop-green checked:border-hop-green transition-colors cursor-pointer">
+                    <i class="fa-solid fa-check absolute left-1 text-white text-xs opacity-0 peer-checked:opacity-100 pointer-events-none"></i>
+                    <span class="text-slate-800 dark:text-slate-200 group-hover:text-hop-emerald transition-colors">{% trans "Malts" %}</span>
                 </label>
-                <label class="checkbox-container">{% trans "Yeast" %}
-                    <input type="checkbox" data-keyword="Yeast">
-                    <span class="checkmark"></span>
+                <label class="checkbox-container relative flex items-center gap-3 cursor-pointer group">
+                    <input type="checkbox" data-keyword="Yeast" class="peer appearance-none w-5 h-5 border border-black/10 dark:border-white/20 rounded bg-white/50 dark:bg-slate-800/50 checked:bg-hop-green checked:border-hop-green transition-colors cursor-pointer">
+                    <i class="fa-solid fa-check absolute left-1 text-white text-xs opacity-0 peer-checked:opacity-100 pointer-events-none"></i>
+                    <span class="text-slate-800 dark:text-slate-200 group-hover:text-hop-emerald transition-colors">{% trans "Yeast" %}</span>
                 </label>
-                <label class="checkbox-container">{% trans "Adjuncts" %}
-                    <input type="checkbox" data-keyword="Adjuncts">
-                    <span class="checkmark"></span>
+                <label class="checkbox-container relative flex items-center gap-3 cursor-pointer group">
+                    <input type="checkbox" data-keyword="Adjuncts" class="peer appearance-none w-5 h-5 border border-black/10 dark:border-white/20 rounded bg-white/50 dark:bg-slate-800/50 checked:bg-hop-green checked:border-hop-green transition-colors cursor-pointer">
+                    <i class="fa-solid fa-check absolute left-1 text-white text-xs opacity-0 peer-checked:opacity-100 pointer-events-none"></i>
+                    <span class="text-slate-800 dark:text-slate-200 group-hover:text-hop-emerald transition-colors">{% trans "Adjuncts" %}</span>
                 </label>
             </div>
         </div>
     </aside>
 
-    <section class="products-area product-grid-section">
-        <div class="search-sort-bar">
-            <div class="search-input-wrapper">
-                <input type="text" placeholder="{% trans 'Search' %}" class="search-input" id="search-input">
-                <button class="search-button" aria-label="{% trans 'Search' %}" id="search-button">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                </button>
+    <section class="flex-1 w-full flex flex-col gap-8">
+        <div class="flex flex-col xl:flex-row justify-between items-start xl:items-center gap-4">
+            <div class="relative w-full max-w-[327px]">
+                <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                <input type="text" placeholder="{% trans 'Search' %}" class="w-full h-11 pl-11 pr-4 bg-white/50 dark:bg-white/5 backdrop-blur-md border border-black/10 dark:border-white/10 rounded-full text-slate-900 dark:text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-hop-green focus:border-hop-green transition-all" id="search-input">
+                <button class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-hop-green transition-colors" aria-label="{% trans 'Search' %}" id="search-button" style="display:none"></button>
             </div>
-            <div class="sort-options">
-                <button class="sort-button active-sort" data-sort="new"><span>{% trans "New" %}</span></button>
-                <button class="sort-button" data-sort="price_asc">{% trans "Price ascending" %}</button>
-                <button class="sort-button" data-sort="price_desc">{% trans "Price descending" %}</button>
+            
+            <div class="flex flex-wrap gap-2 sort-options">
+                <button class="sort-button active-sort px-4 py-2 bg-hop-green border border-hop-green text-white rounded-xl text-sm font-semibold transition-colors" data-sort="new"><span>{% trans "New" %}</span></button>
+                <button class="sort-button px-4 py-2 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 text-slate-600 dark:text-slate-300 rounded-xl text-sm font-semibold hover:bg-black/10 dark:hover:bg-white/10 transition-colors" data-sort="price_asc">{% trans "Price ascending" %}</button>
+                <button class="sort-button px-4 py-2 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 text-slate-600 dark:text-slate-300 rounded-xl text-sm font-semibold hover:bg-black/10 dark:hover:bg-white/10 transition-colors" data-sort="price_desc">{% trans "Price descending" %}</button>
             </div>
         </div>
 
-        <div id="product-list-container">
+        <div id="product-list-container" class="transition-opacity duration-300">
             {% include 'products/includes/product_grid.html' %}
         </div>
     </section>

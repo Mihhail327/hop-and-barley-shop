@@ -47,7 +47,20 @@ INSTALLED_APPS += [
     'reviews',
 ]
 
+# Authentication & Authorization
+# https://docs.djangoproject.com/en/6.0/ref/settings/#auth
 AUTH_USER_MODEL = 'users.User'
+
+# URL, на который перенаправляется анонимный пользователь при попытке
+# доступа к странице, защищенной декоратором @login_required.
+LOGIN_URL = 'users:login'
+
+# URL, на который Django перенаправит пользователя после успешного входа,
+# если в ссылке не было параметра ?next=
+LOGIN_REDIRECT_URL = 'products:product_list'
+
+# URL для перенаправления после выхода из системы
+LOGOUT_REDIRECT_URL = 'products:product_list'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -72,6 +85,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'orders.context_processors.cart',  # Добавляем контекст процессор для корзины
             ],
         },
     },
@@ -110,7 +124,6 @@ CART_SESSION_ID = 'cart'
 
 # Password validation
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',

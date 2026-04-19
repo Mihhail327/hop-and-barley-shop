@@ -1,7 +1,7 @@
 {% load static %}
 {% load i18n %}
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="{{ LANGUAGE_CODE }}" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,59 +15,126 @@
           integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
 
-    <!-- Main CSS -->
-    <link rel="stylesheet" href="{% static 'css/main.css' %}?v={% now 'U' %}">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        'hop-green': '#34d399',
+                        'hop-dark': '#0f172a',
+                        'hop-emerald': '#10b981',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    backdropBlur: {
+                        xs: '2px',
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer components {
+            .glass-card {
+                @apply bg-white/10 dark:bg-slate-900/40 backdrop-blur-md border border-slate-200 dark:border-white/20 rounded-2xl shadow-xl;
+            }
+
+            .form-input {
+                @apply w-full p-3 bg-white/80 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-white focus:ring-2 focus:ring-hop-green outline-none transition-all;
+            }
+
+            /* Принудительная инверсия, если dark:invert не сработает в CDN */
+            .dark img[src*="icons/"] {
+                filter: brightness(0) invert(1);
+            }
+
+            /* Сделаем бейдж корзины контрастнее для темной темы */
+            .dark .cart-badge-fix {
+                @apply bg-hop-green text-slate-900 border-slate-900;
+            }
+        }
+    </style>
 </head>
-<body>
+<body class="bg-slate-50 dark:bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] dark:from-indigo-950 dark:via-hop-dark dark:to-hop-dark text-slate-900 dark:text-white min-h-screen m-0 p-0 font-sans transition-colors duration-300">
 <!-- Header -->
-<header>
-    <div class="header-container">
-        <a href="{% url 'home' %}" class="header__logo">
-            <img src="{% static 'img/logo.svg' %}" alt="Hop & Barley Logo">
-            <p class="logo-text">Hop & Barley</p>
+<header class="w-full h-[100px] px-8 md:px-16 bg-white/70 dark:bg-slate-900/70 backdrop-blur-md border-b border-black/10 dark:border-white/10 flex justify-center items-center sticky top-0 z-50">
+    <div class="w-full max-w-[1312px] flex justify-between items-center">
+
+        {# Logo #}
+        <a href="{% url 'home' %}" class="flex items-center gap-6">
+            <img src="{% static 'img/logo.svg' %}" alt="Hop & Barley Logo" class="w-[26px] h-[37.52px] rounded-lg">
+            <p class="text-2xl font-bold leading-none text-slate-900 dark:text-white">Hop & Barley</p>
         </a>
-        <div style="display: flex; align-items: center; gap: 16px;">
-            <form action="{% url 'set_language' %}" method="post" style="display: inline;">
+
+        {# Language & Theme #}
+        <div class="flex items-center gap-4">
+            <form action="{% url 'set_language' %}" method="post" class="inline">
                 {% csrf_token %}
                 <input name="next" type="hidden" value="{{ request.get_full_path }}">
-                <div class="language-selector">
-                    <i class="fa-solid fa-globe globe-icon"></i>
-                    <select name="language" onchange="this.form.submit()" class="language-select">
+                <div class="relative inline-flex items-center group">
+                    <i class="fa-solid fa-globe absolute left-3 text-slate-400 text-sm group-hover:text-hop-green transition-colors"></i>
+                    <select name="language" onchange="this.form.submit()"
+                            class="appearance-none bg-black/5 dark:bg-white/5 backdrop-blur-md border border-black/10 dark:border-white/10 rounded-[20px] py-1.5 pl-9 pr-10 text-sm font-semibold text-slate-900 dark:text-white cursor-pointer hover:border-hop-green hover:bg-hop-green/10 transition duration-300 focus:outline-none focus:ring-2 focus:ring-hop-green/40 mt-[1px]">
                         {% get_current_language as LANGUAGE_CODE %}
                         {% get_available_languages as LANGUAGES %}
                         {% for lang in LANGUAGES %}
-                        <option value="{{ lang.0 }}" {% if lang.0 == LANGUAGE_CODE %}selected{% endif %}>
+                        <option value="{{ lang.0 }}" {% if lang.0 == LANGUAGE_CODE %}selected{% endif %}
+                                class="bg-white dark:bg-hop-dark text-slate-900 dark:text-white">
                             {{ lang.0|upper }} - {{ lang.1 }}
                         </option>
                         {% endfor %}
                     </select>
+                    <i class="fa-solid fa-caret-down absolute right-3 text-slate-400 text-sm pointer-events-none group-hover:text-hop-green transition-colors"></i>
                 </div>
             </form>
-            <button id="theme-toggle" aria-label="Toggle Theme" style="background:none; border:none; color: var(--black-main); cursor: pointer; font-size: 20px;">
+            <button id="theme-toggle" aria-label="Toggle Theme"
+                    class="bg-transparent border-none text-slate-900 dark:text-white cursor-pointer text-xl ml-2 hover:text-hop-green transition-colors">
                 <i class="fa-solid fa-moon"></i>
             </button>
         </div>
-        <nav class="header__nav">
-            <ul>
-                <li><a href="{% url 'products:product_list' %}">{% trans "Products" %}</a></li>
-                <li><a href="#">{% trans "Guides & Recipes" %}</a></li>
-                <li><a href="#">{% trans "Community" %}</a></li>
-                <li><a href="#">{% trans "Resources" %}</a></li>
-                <li><a href="#">{% trans "Contact" %}</a></li>
+
+        {# Navigation #}
+        <nav class="hidden lg:block w-[640px]">
+            <ul class="list-none m-0 p-0 flex justify-between items-center">
+                <li><a href="{% url 'products:product_list' %}" class="p-2 text-base leading-none font-medium text-slate-900 dark:text-white hover:text-hop-emerald transition-colors">{% trans "Products" %}</a></li>
+                <li><a href="#" class="p-2 text-base leading-none font-medium text-slate-900 dark:text-white hover:text-hop-emerald transition-colors">{% trans "Guides & Recipes" %}</a></li>
+                <li><a href="#" class="p-2 text-base leading-none font-medium text-slate-900 dark:text-white hover:text-hop-emerald transition-colors">{% trans "Community" %}</a></li>
+                <li><a href="#" class="p-2 text-base leading-none font-medium text-slate-900 dark:text-white hover:text-hop-emerald transition-colors">{% trans "Resources" %}</a></li>
+                <li><a href="#" class="p-2 text-base leading-none font-medium text-slate-900 dark:text-white hover:text-hop-emerald transition-colors">{% trans "Contact" %}</a></li>
             </ul>
         </nav>
 
-        <div class="header__auth-buttons" id="auth-guest">
-            <a href="{% url 'users:login' %}" class="button button--secondary">{% trans "Sign in" %}</a>
-            <a href="{% url 'users:register' %}" class="button button--primary">{% trans "Register" %}</a>
-        </div>
-        <div class="header__user-actions" id="auth-user">
-            <a href="#" class="user-icon" aria-label="My Account">
-                <img src="{% static 'img/icons/User_alt.svg' %}" alt="User Account">
-            </a>
-            <a href="#" class="cart-icon" aria-label="Shopping Cart">
-                <img src="{% static 'img/icons/Shopping_bag.svg' %}" alt="Shopping Cart">
-            </a>
+        {# Auth & Cart #}
+        <div class="flex items-center gap-5">
+            {% if user.is_authenticated %}
+                <div>
+                    <a href="#" class="hover:opacity-80 transition-opacity" aria-label="{% trans 'My Account' %}">
+                        <img src="{% static 'img/icons/User_alt.svg' %}" alt="User Account" class="w-6 h-6 dark:invert">
+                    </a>
+                </div>
+            {% else %}
+                <div class="w-32 flex items-center justify-end">
+                    <a href="{% url 'users:login' %}"
+                       class="px-5 py-2.5 bg-black/5 dark:bg-white/10 border border-black/20 dark:border-white/20 text-slate-900 dark:text-white font-semibold rounded-xl hover:bg-slate-200 dark:hover:bg-slate-700 transition-all flex items-center justify-center whitespace-nowrap">
+                       {% trans "Sign in" %}
+                    </a>
+                </div>
+            {% endif %}
+
+            <div>
+                <a href="{% url 'orders:cart_detail' %}" class="relative flex items-center hover:opacity-80 transition-opacity" aria-label="{% trans 'Shopping Cart' %}">
+                    <img src="{% static 'img/icons/Shopping_bag.svg' %}" alt="Shopping Cart" class="w-6 h-6 dark:invert">
+                    {% if cart|length > 0 %}
+                    <span class="absolute -top-2 -right-2 bg-hop-emerald text-white text-[10px] font-bold w-5 h-5 flex items-center justify-center rounded-full border-2 border-white dark:border-slate-900 shadow-sm">
+                        {{ cart|length }}
+                    </span>
+                    {% endif %}
+                </a>
+            </div>
         </div>
     </div>
 </header>
@@ -78,18 +145,24 @@
 </main>
 
 <!-- Footer -->
-<footer>
-    <img src="{% static 'img/background/image-footer.svg' %}" alt="Hop & Barley Hops Logo" class="footer__hops-logo">
-    <nav class="footer__nav">
-        <ul>
-            <li><a href="#">{% trans "Contact" %}</a></li>
-            <li><a href="#">{% trans "FAQ" %}</a></li>
-            <li><a href="#">{% trans "Community" %}</a></li>
-            <li><a href="#">{% trans "Resources" %}</a></li>
-            <li><a href="#">{% trans "License" %}</a></li>
+<footer class="w-full px-16 pt-16 pb-8 bg-white dark:bg-slate-900/90 border-t border-slate-200 dark:border-white/10 flex flex-col items-center gap-12 mt-auto">
+    <img src="{% static 'img/background/image-footer.svg' %}" alt="Hop & Barley Hops Logo"
+         class="w-[484px] h-[264px] object-contain">
+    <nav class="w-full max-w-[640px]">
+        <ul class="list-none m-0 p-0 flex flex-wrap justify-between items-center gap-4">
+            <li><a href="#" class="text-base text-slate-700 dark:text-white hover:opacity-80 transition-opacity">{%
+                trans "Contact" %}</a></li>
+            <li><a href="#" class="text-base text-slate-700 dark:text-white hover:opacity-80 transition-opacity">{%
+                trans "FAQ" %}</a></li>
+            <li><a href="#" class="text-base text-slate-700 dark:text-white hover:opacity-80 transition-opacity">{%
+                trans "Community" %}</a></li>
+            <li><a href="#" class="text-base text-slate-700 dark:text-white hover:opacity-80 transition-opacity">{%
+                trans "Resources" %}</a></li>
+            <li><a href="#" class="text-base text-slate-700 dark:text-white hover:opacity-80 transition-opacity">{%
+                trans "License" %}</a></li>
         </ul>
     </nav>
-    <p class="footer__copyright">{% trans "© Hop & Barley 2025. All rights reserved" %}</p>
+    <p class="text-sm text-slate-500 dark:text-slate-400">{% trans "© Hop & Barley 2025. All rights reserved" %}</p>
 </footer>
 
 <!-- JS -->

@@ -1,29 +1,33 @@
 document.addEventListener('DOMContentLoaded', function() {
     // --- Theme Toggle Logic ---
     const themeToggleBtn = document.getElementById('theme-toggle');
-    const currentTheme = localStorage.getItem('theme') || 'dark';
     
-    if (currentTheme === 'light') {
-        document.body.setAttribute('data-theme', 'light');
+    // Новая логика инициализации при загрузке
+    if (localStorage.getItem('theme') === 'dark' || !localStorage.getItem('theme')) {
+        document.documentElement.classList.add('dark');
+    } else {
+        document.documentElement.classList.remove('dark');
     }
     
     if (themeToggleBtn) {
         const themeIcon = themeToggleBtn.querySelector('i');
         // Initial icon update
-        if (currentTheme === 'light') {
+        if (document.documentElement.classList.contains('dark')) {
+            themeIcon.classList.replace('fa-sun', 'fa-moon');
+        } else {
             themeIcon.classList.replace('fa-moon', 'fa-sun');
         }
         
-        themeToggleBtn.addEventListener('click', function() {
-            const isLight = document.body.getAttribute('data-theme') === 'light';
-            if (isLight) {
-                document.body.removeAttribute('data-theme');
-                localStorage.setItem('theme', 'dark');
-                themeIcon.classList.replace('fa-sun', 'fa-moon');
-            } else {
-                document.body.setAttribute('data-theme', 'light');
+        // Новая логика переключения для Tailwind
+        themeToggleBtn.addEventListener('click', () => {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
                 localStorage.setItem('theme', 'light');
                 themeIcon.classList.replace('fa-moon', 'fa-sun');
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+                themeIcon.classList.replace('fa-sun', 'fa-moon');
             }
         });
     }

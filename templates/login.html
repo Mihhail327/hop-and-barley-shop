@@ -4,53 +4,70 @@
 {% block title %}{% trans "Sign In" %} | Hop & Barley{% endblock %}
 
 {% block content %}
-<main class="auth-page-wrapper">
-  <div class="auth-background">
-    {# Используем тег static для пути к картинке #}
-    <img src="{% static 'img/background/pattern.jpg' %}" alt="Background pattern">
-  </div>
-  
-  <div class="auth-form-container">
-    <div class="auth-container auth-container--login">
-      <div class="Legend">
-        <h1 class="auth-title">{% trans "Sign In" %}</h1>
-      </div>
+{# Контейнер на весь экран #}
+<div class="relative min-h-[calc(100vh-100px)] flex items-center justify-center py-12 px-4 overflow-hidden">
 
-      {# Форма должна отправлять POST запрос на саму себя #}
-      <form class="auth-form" method="post">
-        {% csrf_token %}
-        
-        {# Если есть ошибки входа (неверный пароль), выводим их #}
-        {% if form.errors %}
-          <p style="color: #e74c3c; margin-bottom: 10px;">
-            {% trans "Invalid email or password." %}
-          </p>
-        {% endif %}
+    {# 1. ФОН: Поля хмеля вместо паттерна #}
+    <img src="{% static 'img/background/hopfen-fields.jpg' %}"
+         alt="Hops Fields"
+         class="absolute inset-0 w-full h-full object-cover z-0">
 
-        <div class="InputField">
-          <label for="id_username">{% trans "Email" %}</label>
-          {# В Django аутентификация часто идет через поле username (email в нашем случае) #}
-          <input type="email" name="username" id="id_username" class="Input" placeholder="email@example.com" required>
+    {# 2. ЗАТЕМНЕНИЕ: Чтобы текст читался #}
+    <div class="absolute inset-0 bg-black/60 dark:bg-hop-dark/80 z-0"></div>
+
+    {# 3. ФОРМА: В стеклянном стиле #}
+    <div class="relative z-10 w-full max-w-[400px]">
+        <div class="glass-card p-8 md:p-10 border border-white/20 shadow-2xl backdrop-blur-xl bg-white/5">
+
+            <div class="text-center mb-8">
+                <h1 class="text-3xl font-bold text-white mb-2">{% trans "Welcome Back" %}</h1>
+                <p class="text-slate-300 text-sm">{% trans "Enter your brewing account" %}</p>
+            </div>
+
+            {% if form.errors %}
+            <div class="mb-6 p-4 bg-red-500/20 border border-red-500/40 rounded-xl text-xs text-red-200">
+                {% trans "Invalid email or password." %}
+            </div>
+            {% endif %}
+
+            <form method="post" class="space-y-5">
+                {% csrf_token %}
+
+                <div class="space-y-1.5">
+                    <label class="text-[11px] font-bold text-slate-400 uppercase tracking-wider ml-1">Email</label>
+                    <div class="relative">
+                        <i class="fa-solid fa-envelope absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                        <input type="email" name="username" required
+                               class="form-input pl-11 bg-white/10 border-white/10 text-white placeholder:text-slate-500"
+                               placeholder="email@example.com">
+                    </div>
+                </div>
+
+                <div class="space-y-1.5">
+                    <label class="text-[11px] font-bold text-slate-400 uppercase tracking-wider ml-1">{% trans "Password" %}</label>
+                    <div class="relative">
+                        <i class="fa-solid fa-lock absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                        <input type="password" name="password" required
+                               class="form-input pl-11 bg-white/10 border-white/10 text-white placeholder:text-slate-500"
+                               placeholder="••••••••">
+                    </div>
+                </div>
+
+                <button type="submit"
+                        class="w-full py-4 bg-hop-green hover:bg-hop-emerald text-slate-900 font-bold rounded-xl shadow-lg transition-all transform hover:-translate-y-0.5 mt-4">
+                    {% trans "Sign In" %}
+                </button>
+            </form>
+
+            <div class="mt-8 text-center pt-6 border-t border-white/10">
+                <p class="text-sm text-slate-300">
+                    {% trans "Don't have an account?" %}
+                    <a href="{% url 'users:register' %}" class="font-bold text-hop-green hover:underline">
+                        {% trans "Sign Up" %}
+                    </a>
+                </p>
+            </div>
         </div>
-        
-        <div class="InputField">
-          <label for="id_password">{% trans "Password" %}</label>
-          <input type="password" name="password" id="id_password" class="Input" placeholder="********" required>
-        </div>
-
-        <div class="ButtonGroup">
-          <button type="submit" class="button button--primary">{% trans "Sign In" %}</button>
-        </div>
-
-        <div class="TextLink">
-          <a href="#">{% trans "Forgot password?" %}</a>
-        </div>
-      </form>
-
-      <p class="auth-switch">
-        {% trans "Don’t have an account?" %} <a href="{% url 'users:register' %}">{% trans "Sign up" %}</a>
-      </p>
     </div>
-  </div>
-</main>
+</div>
 {% endblock %}

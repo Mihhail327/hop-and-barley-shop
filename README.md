@@ -51,6 +51,7 @@ docker-compose exec web python manage.py loaddata categories.json products.json
 ```
 ### 3. Доступ к приложению
 Откройте браузер и перейдите по адресу: http://localhost:8000
+
 Панель администратора: http://localhost:8000/shop_admin/ 
 ---
 

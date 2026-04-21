@@ -3,60 +3,64 @@
     "model": "products.category",
     "pk": 1,
     "fields": {
-      "name": "Hops",
+      "name_ru": "Хмель",
+      "name_en": "Hops",
       "slug": "hops",
+      "description_ru": "Лучшие сорта хмеля для вашего пива.",
+      "description_en": "Best hop varieties for your beer.",
       "is_active": true,
       "is_featured": true,
       "order": 1,
-      "description": "Essential for bitterness, flavor, and aroma in beer.",
-      "image": "products/citra_hops.jpg",
-      "created_at": "2026-04-06T20:00:00Z",
-      "updated_at": "2026-04-06T20:00:00Z"
+      "created_at": "2026-04-21T22:00:00Z",
+      "updated_at": "2026-04-21T22:00:00Z"
     }
   },
   {
     "model": "products.category",
     "pk": 2,
     "fields": {
-      "name": "Malts",
-      "slug": "malts",
+      "name_ru": "Солод",
+      "name_en": "Malt",
+      "slug": "malt",
+      "description_ru": "Качественный солод из Европы и США.",
+      "description_en": "High-quality malt from Europe and USA.",
       "is_active": true,
       "is_featured": true,
       "order": 2,
-      "description": "The soul of the beer, providing sugar for fermentation and color.",
-      "image": "products/maris_otter_malt.jpg",
-      "created_at": "2026-04-06T20:00:00Z",
-      "updated_at": "2026-04-06T20:00:00Z"
+      "created_at": "2026-04-21T22:00:00Z",
+      "updated_at": "2026-04-21T22:00:00Z"
     }
   },
   {
     "model": "products.category",
     "pk": 3,
     "fields": {
-      "name": "Yeast",
+      "name_ru": "Дрожжи",
+      "name_en": "Yeast",
       "slug": "yeast",
+      "description_ru": "Сухие и жидкие дрожжи для любого стиля.",
+      "description_en": "Dry and liquid yeast for any style.",
       "is_active": true,
-      "is_featured": true,
+      "is_featured": false,
       "order": 3,
-      "description": "Microscopic fungi responsible for turning wort into beer.",
-      "image": "products/safale_us05_yeast.jpg",
-      "created_at": "2026-04-06T20:00:00Z",
-      "updated_at": "2026-04-06T20:00:00Z"
+      "created_at": "2026-04-21T22:00:00Z",
+      "updated_at": "2026-04-21T22:00:00Z"
     }
   },
   {
     "model": "products.category",
     "pk": 4,
     "fields": {
-      "name": "Brewing Kits",
+      "name_ru": "Наборы для варки",
+      "name_en": "Brewing Kits",
       "slug": "kits",
+      "description_ru": "Готовые наборы ингредиентов.",
+      "description_en": "Ready-to-brew ingredient kits.",
       "is_active": true,
-      "is_featured": true,
+      "is_featured": false,
       "order": 4,
-      "description": "All-in-one batches for your convenience.",
-      "image": "products/ipa_kit.jpg",
-      "created_at": "2026-04-06T20:00:00Z",
-      "updated_at": "2026-04-06T20:00:00Z"
+      "created_at": "2026-04-21T22:00:00Z",
+      "updated_at": "2026-04-21T22:00:00Z"
     }
   }
 ]

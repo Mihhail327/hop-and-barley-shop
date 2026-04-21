@@ -31,7 +31,6 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
-    'modeltranslation',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -149,6 +148,15 @@ LANGUAGES = [
     ('ru', 'Russian'),
     ('en', 'English'),
 ]
+
+# Явно указываем Django сохранять язык в куках браузера
+LANGUAGE_COOKIE_NAME = 'django_language'
+LANGUAGE_COOKIE_AGE = 31536000  # 1 год в секундах
+LANGUAGE_COOKIE_PATH = '/'
+
+# Важно для Docker, чтобы CSRF и сессии не блокировались
+CSRF_TRUSTED_ORIGINS = ['http://localhost:8000', 'http://127.0.0.1:8000']
+SESSION_COOKIE_AGE = 1209600 # 2 недели
 
 TIME_ZONE = 'Europe/Moscow'
 

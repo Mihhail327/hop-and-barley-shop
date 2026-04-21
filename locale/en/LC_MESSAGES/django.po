@@ -1,0 +1,300 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.0\n"
+"Language-Team: en <yourteam@example.com>\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Proceed to Checkout"
+msgstr "Proceed to Checkout"
+
+msgid "Products"
+msgstr "Products"
+
+msgid "Thank you for your order!"
+msgstr "Thank you for your order!"
+
+msgid "Sign in"
+msgstr "Sign in"
+
+msgid "Premium ingredients and expert supplies for the dedicated brewer."
+msgstr "Premium ingredients and expert supplies for the dedicated brewer."
+
+msgid "Digital Wallet"
+msgstr "Digital Wallet"
+
+msgid "Latest reviews"
+msgstr "Latest reviews"
+
+msgid "Hops Fields"
+msgstr "Hops Fields"
+
+msgid "Payment Method"
+msgstr "Payment Method"
+
+msgid "Guides & Recipes"
+msgstr "Guides & Recipes"
+
+msgid "Order Summary"
+msgstr "Order Summary"
+
+msgid "Shipping address"
+msgstr "Shipping address"
+
+msgid "Expert Guides"
+msgstr "Expert Guides"
+
+msgid "Shop by Category"
+msgstr "Shop by Category"
+
+msgid "Pending"
+msgstr "Pending"
+
+msgid "Product"
+msgstr "Product"
+
+msgid "Shipped"
+msgstr "Shipped"
+
+msgid "Sourced directly from the best farms."
+msgstr "Sourced directly from the best farms."
+
+msgid "Go to Shop"
+msgstr "Go to Shop"
+
+msgid "Invalid email or password"
+msgstr "Invalid email or password"
+
+msgid "Order Details"
+msgstr "Order Details"
+
+msgid "Canceled"
+msgstr "Canceled"
+
+msgid "My Account"
+msgstr "My Account"
+
+msgid "Remember me"
+msgstr "Remember me"
+
+msgid "Explore Catalog"
+msgstr "Explore Catalog"
+
+msgid "Next"
+msgstr "Next"
+
+msgid "Delivered"
+msgstr "Delivered"
+
+msgid "Rating"
+msgstr "Rating"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Share your brewing results with this product..."
+msgstr "Share your brewing results with this product..."
+
+msgid "Quantity"
+msgstr "Quantity"
+
+msgid "Malts"
+msgstr "Malts"
+
+msgid "Submit Review"
+msgstr "Submit Review"
+
+msgid "Snapshot price at the moment of purchase"
+msgstr "Snapshot price at the moment of purchase"
+
+msgid "Invalid email or password."
+msgstr "Invalid email or password."
+
+msgid "Order Created"
+msgstr "Order Created"
+
+msgid "Total Amount"
+msgstr "Total Amount"
+
+msgid "Paid"
+msgstr "Paid"
+
+msgid "Fresh ingredients at your door, fast."
+msgstr "Fresh ingredients at your door, fast."
+
+msgid "Welcome Back"
+msgstr "Welcome Back"
+
+msgid "Premium Quality"
+msgstr "Premium Quality"
+
+msgid "Search"
+msgstr "Search"
+
+msgid "Password"
+msgstr "Password"
+
+msgid "Add to Cart"
+msgstr "Add to Cart"
+
+msgid "Price ascending"
+msgstr "Price ascending"
+
+msgid "Remove"
+msgstr "Remove"
+
+msgid "Keywords"
+msgstr "Keywords"
+
+msgid "Technical Specifications"
+msgstr "Technical Specifications"
+
+msgid "Pay & Place Order"
+msgstr "Pay & Place Order"
+
+msgid "Contact"
+msgstr "Contact"
+
+msgid "Leave a Review"
+msgstr "Leave a Review"
+
+msgid "We will contact you shortly for delivery details."
+msgstr "We will contact you shortly for delivery details."
+
+msgid "No reviews yet. Be the first to share your experience!"
+msgstr "No reviews yet. Be the first to share your experience!"
+
+msgid "Your order number is"
+msgstr "Your order number is"
+
+msgid "Shipping information"
+msgstr "Shipping information"
+
+msgid "City"
+msgstr "City"
+
+msgid "Brewing Kits"
+msgstr "Brewing Kits"
+
+msgid "Orders"
+msgstr "Orders"
+
+msgid "Yeast"
+msgstr "Yeast"
+
+msgid "Your Comment"
+msgstr "Your Comment"
+
+msgid "Products not found."
+msgstr "Products not found."
+
+msgid "Shopping cart"
+msgstr "Shopping cart"
+
+msgid "Your cart is empty"
+msgstr "Your cart is empty"
+
+msgid "Product Type"
+msgstr "Product Type"
+
+msgid "Shipping Address"
+msgstr "Shipping Address"
+
+msgid "Total to pay"
+msgstr "Total to pay"
+
+msgid "Fast Delivery"
+msgstr "Fast Delivery"
+
+msgid "FAQ"
+msgstr "FAQ"
+
+msgid "Enter your brewing account"
+msgstr "Enter your brewing account"
+
+msgid "Price descending"
+msgstr "Price descending"
+
+msgid "Resources"
+msgstr "Resources"
+
+msgid "Community"
+msgstr "Community"
+
+msgid "Forgot password?"
+msgstr "Forgot password?"
+
+msgid "Please enter your details"
+msgstr "Please enter your details"
+
+msgid "Don't have an account?"
+msgstr "Don't have an account?"
+
+msgid "Previous"
+msgstr "Previous"
+
+msgid "Continue Shopping"
+msgstr "Continue Shopping"
+
+msgid "Customer"
+msgstr "Customer"
+
+msgid "Debit Card"
+msgstr "Debit Card"
+
+msgid "Cash On Delivery"
+msgstr "Cash On Delivery"
+
+msgid "Recipes and tips from master brewers."
+msgstr "Recipes and tips from master brewers."
+
+msgid "Order"
+msgstr "Order"
+
+msgid "Checkout"
+msgstr "Checkout"
+
+msgid "Catalog | Hop & Barley"
+msgstr "Catalog | Hop & Barley"
+
+msgid "Specifications to be clarified"
+msgstr "Specifications to be clarified"
+
+msgid "Sign Up"
+msgstr "Sign Up"
+
+msgid "Shopping Cart"
+msgstr "Shopping Cart"
+
+msgid "Craft Your Perfect Brew"
+msgstr "Craft Your Perfect Brew"
+
+msgid "New"
+msgstr "New"
+
+msgid "License"
+msgstr "License"
+
+msgid "per unit"
+msgstr "per unit"
+
+msgid "Hop & Barley. All rights reserved"
+msgstr "Hop & Barley. All rights reserved"
+
+msgid "Hops"
+msgstr "Hops"
+
+msgid "Price"
+msgstr "Price"
+
+msgid "Sign In"
+msgstr "Sign In"
+
+msgid "Total Price"
+msgstr "Total Price"
+
+msgid "Home | Hop & Barley"
+msgstr "Home | Hop & Barley"

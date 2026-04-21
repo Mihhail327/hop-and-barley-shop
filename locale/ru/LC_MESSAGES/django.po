@@ -1,206 +1,302 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-12 22:51+0300\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"Project-Id-Version: 1.0\n"
+"Language-Team: ru <yourteam@example.com>\n"
+"Language: ru\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
-"(n%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: templates/base.html:52
+msgid "Proceed to Checkout"
+msgstr "Перейти к оформлению"
+
 msgid "Products"
 msgstr "Товары"
 
-#: templates/base.html:53
-msgid "Guides & Recipes"
-msgstr "Гайды и Рецепты"
+msgid "Thank you for your order!"
+msgstr "Спасибо за ваш заказ!"
 
-#: templates/base.html:54 templates/base.html:87
-msgid "Community"
-msgstr "Сообщество"
-
-#: templates/base.html:55 templates/base.html:88
-msgid "Resources"
-msgstr "Ресурсы"
-
-#: templates/base.html:56 templates/base.html:85
-msgid "Contact"
-msgstr "Контакты"
-
-#: templates/base.html:61
 msgid "Sign in"
 msgstr "Войти"
 
-#: templates/base.html:62 templates/register.html:27 templates/register.html:61
-msgid "Register"
-msgstr "Регистрация"
-
-#: templates/base.html:86
-msgid "FAQ"
-msgstr "ЧАВО"
-
-#: templates/base.html:89
-msgid "License"
-msgstr "Лицензия"
-
-#: templates/base.html:92
-msgid "© Hop & Barley 2025. All rights reserved"
-msgstr "© Hop & Barley 2025. Все права защищены"
-
-#: templates/home.html:4
-msgid "Home | Hop & Barley"
-msgstr "Главная | Hop & Barley"
-
-#: templates/home.html:8
-msgid "Hops Fields"
-msgstr "Хмелевые поля"
-
-#: templates/home.html:11
-msgid "Craft Your Perfect Brew"
-msgstr "Свари свой идеальный напиток"
-
-#: templates/home.html:12
 msgid "Premium ingredients and expert supplies for the dedicated brewer."
-msgstr "Премиальные ингредиенты и оборудование для настоящих пивоваров."
+msgstr ""
+"Премиальные ингредиенты и профессиональное оборудование для преданного "
+"пивовара."
 
-#: templates/home.html:14
-msgid "Explore Catalog"
-msgstr "Перейти в каталог"
+msgid "Digital Wallet"
+msgstr "Электронный кошелек"
 
-#: templates/home.html:23
-msgid "Premium Quality"
-msgstr "Премиум Качество"
-
-#: templates/home.html:24
-msgid "Sourced directly from the best farms."
-msgstr "Напрямую с лучших ферм."
-
-#: templates/home.html:28
-msgid "Fast Delivery"
-msgstr "Быстрая Доставка"
-
-#: templates/home.html:29
-msgid "Fresh ingredients at your door, fast."
-msgstr "Свежие ингредиенты быстро и прямо к вашей двери."
-
-#: templates/home.html:33
-msgid "Expert Guides"
-msgstr "Гайды от Экспертов"
-
-#: templates/home.html:34
-msgid "Recipes and tips from master brewers."
-msgstr "Рецепты и советы от мастеров-пивоваров."
-
-#: templates/home.html:39
-msgid "Shop by Category"
-msgstr "Смотреть по категориям"
-
-#: templates/home.html:44 templates/products/product_list.html:18
-msgid "Hops"
-msgstr "Хмель"
-
-#: templates/home.html:50 templates/products/product_list.html:22
-msgid "Malts"
-msgstr "Солод"
-
-#: templates/home.html:56 templates/products/product_list.html:26
-msgid "Yeast"
-msgstr "Дрожжи"
-
-#: templates/products/product_detail.html:24
-msgid "per unit"
-msgstr "за единицу"
-
-#: templates/products/product_detail.html:35
-msgid "Add to Cart"
-msgstr "В корзину"
-
-#: templates/products/product_detail.html:44
-msgid "Technical Specifications"
-msgstr "Технические характеристики"
-
-#: templates/products/product_detail.html:53
-msgid "Specifications to be clarified"
-msgstr "Характеристики уточняются"
-
-#: templates/products/product_detail.html:61
 msgid "Latest reviews"
 msgstr "Последние отзывы"
 
-#: templates/products/product_detail.html:68
-msgid "Great Quality"
-msgstr "Отличное качество"
+msgid "Hops Fields"
+msgstr "Хмелевые поля"
 
-#: templates/products/product_detail.html:69
-msgid "Excellent product, works exactly as expected. Highly recommend."
-msgstr "Отличный продукт, работает как ожидалось. Настоятельно рекомендую."
+msgid "Payment Method"
+msgstr "Способ оплаты"
 
-#: templates/products/product_detail.html:72
-msgid "User avatar"
-msgstr "Аватар пользователя"
+msgid "Guides & Recipes"
+msgstr "Руководства и рецепты"
 
-#: templates/products/product_list.html:4
-msgid "Catalog | Hop & Barley"
-msgstr "Каталог товаров | Hop & Barley"
+msgid "Order Summary"
+msgstr "Итого по заказу"
 
-#: templates/products/product_list.html:10
-msgid "Keywords"
-msgstr "Ключевые слова"
+msgid "Shipping address"
+msgstr "Адрес доставки"
 
-#: templates/products/product_list.html:16
-msgid "Product Type"
-msgstr "Тип продукта"
+msgid "Expert Guides"
+msgstr "Советы экспертов"
 
-#: templates/products/product_list.html:30
-msgid "Adjuncts"
-msgstr "Добавки"
+msgid "Shop by Category"
+msgstr "Категории товаров"
 
-#: templates/products/product_list.html:41
-#: templates/products/product_list.html:42
+msgid "Pending"
+msgstr "В ожидании"
+
+msgid "Product"
+msgstr "Товар"
+
+msgid "Shipped"
+msgstr "Отправлен"
+
+msgid "Sourced directly from the best farms."
+msgstr "Прямые поставки с лучших ферм."
+
+msgid "Go to Shop"
+msgstr "Перейти в магазин"
+
+msgid "Invalid email or password"
+msgstr "Неверный адрес электронной почты или пароль"
+
+msgid "Order Details"
+msgstr "Детали заказа"
+
+msgid "Canceled"
+msgstr "Отменен"
+
+msgid "My Account"
+msgstr "Мой аккаунт"
+
+msgid "Remember me"
+msgstr "Запомнить меня"
+
+msgid "Explore Catalog"
+msgstr "Смотреть каталог"
+
+msgid "Next"
+msgstr "Далее"
+
+msgid "Delivered"
+msgstr "Доставлен"
+
+msgid "Rating"
+msgstr "Рейтинг"
+
+msgid "Status"
+msgstr "Статус"
+
+msgid "Share your brewing results with this product..."
+msgstr "Поделитесь результатами варки с этим продуктом..."
+
+msgid "Quantity"
+msgstr "Количество"
+
+msgid "Malts"
+msgstr "Солод"
+
+msgid "Submit Review"
+msgstr "Отправить отзыв"
+
+msgid "Snapshot price at the moment of purchase"
+msgstr "Цена на момент покупки"
+
+msgid "Invalid email or password."
+msgstr "Неверный адрес электронной почты или пароль."
+
+msgid "Order Created"
+msgstr "Заказ создан"
+
+msgid "Total Amount"
+msgstr "Общая сумма"
+
+msgid "Paid"
+msgstr "Оплачен"
+
+msgid "Fresh ingredients at your door, fast."
+msgstr "Свежие ингредиенты быстро и прямо к вашей двери."
+
+msgid "Welcome Back"
+msgstr "С возвращением"
+
+msgid "Premium Quality"
+msgstr "Премиальное качество"
+
 msgid "Search"
 msgstr "Поиск"
 
-#: templates/products/product_list.html:47
-msgid "New"
-msgstr "Новые"
+msgid "Password"
+msgstr "Пароль"
 
-#: templates/products/product_list.html:48
+msgid "Add to Cart"
+msgstr "В корзину"
+
 msgid "Price ascending"
-msgstr "Сначала дешевле"
+msgstr "Сначала дешевые"
 
-#: templates/products/product_list.html:49
-msgid "Price descending"
-msgstr "Сначала дороже"
+msgid "Remove"
+msgstr "Удалить"
 
-#: templates/products/product_list.html:50
-msgid "Rating"
-msgstr "По рейтингу"
+msgid "Keywords"
+msgstr "Ключевые слова"
 
-#: templates/products/product_list.html:72
+msgid "Technical Specifications"
+msgstr "Технические характеристики"
+
+msgid "Pay & Place Order"
+msgstr "Оплатить и оформить заказ"
+
+msgid "Contact"
+msgstr "Контакты"
+
+msgid "Leave a Review"
+msgstr "Оставить отзыв"
+
+msgid "We will contact you shortly for delivery details."
+msgstr "Мы скоро свяжемся с вами для уточнения деталей доставки."
+
+msgid "No reviews yet. Be the first to share your experience!"
+msgstr "Отзывов пока нет. Поделитесь своим опытом первым!"
+
+msgid "Your order number is"
+msgstr "Номер вашего заказа"
+
+msgid "Shipping information"
+msgstr "Информация о доставке"
+
+msgid "City"
+msgstr "Город"
+
+msgid "Brewing Kits"
+msgstr "Наборы для варки"
+
+msgid "Orders"
+msgstr "Заказы"
+
+msgid "Yeast"
+msgstr "Дрожжи"
+
+msgid "Your Comment"
+msgstr "Ваш комментарий"
+
 msgid "Products not found."
 msgstr "Товары не найдены."
 
-#: templates/products/product_list.html:78
+msgid "Shopping cart"
+msgstr "Корзина"
+
+msgid "Your cart is empty"
+msgstr "Ваша корзина пуста"
+
+msgid "Product Type"
+msgstr "Тип продукта"
+
+msgid "Shipping Address"
+msgstr "Адрес доставки"
+
+msgid "Total to pay"
+msgstr "Итого к оплате"
+
+msgid "Fast Delivery"
+msgstr "Быстрая доставка"
+
+msgid "FAQ"
+msgstr "Частые вопросы"
+
+msgid "Enter your brewing account"
+msgstr "Войдите в свой аккаунт пивовара"
+
+msgid "Price descending"
+msgstr "Сначала дорогие"
+
+msgid "Resources"
+msgstr "Ресурсы"
+
+msgid "Community"
+msgstr "Сообщество"
+
+msgid "Forgot password?"
+msgstr "Забыли пароль?"
+
+msgid "Please enter your details"
+msgstr "Пожалуйста, введите ваши данные"
+
+msgid "Don't have an account?"
+msgstr "У вас нет аккаунта?"
+
 msgid "Previous"
 msgstr "Назад"
 
-#: templates/products/product_list.html:88
-msgid "Next"
-msgstr "Вперед"
+msgid "Continue Shopping"
+msgstr "Продолжить покупки"
 
-#: templates/register.html:41
-msgid "Username"
-msgstr "Имя пользователя"
+msgid "Customer"
+msgstr "Покупатель"
+
+msgid "Debit Card"
+msgstr "Банковская карта"
+
+msgid "Cash On Delivery"
+msgstr "Оплата при получении"
+
+msgid "Recipes and tips from master brewers."
+msgstr "Рецепты и советы от мастеров-пивоваров."
+
+msgid "Order"
+msgstr "Заказ"
+
+msgid "Checkout"
+msgstr "Оформление"
+
+msgid "Catalog | Hop & Barley"
+msgstr "Каталог | Hop & Barley"
+
+msgid "Specifications to be clarified"
+msgstr "Характеристики уточняются"
+
+msgid "Sign Up"
+msgstr "Зарегистрироваться"
+
+msgid "Shopping Cart"
+msgstr "Корзина"
+
+msgid "Craft Your Perfect Brew"
+msgstr "Создай свой идеальный напиток"
+
+msgid "New"
+msgstr "Новинки"
+
+msgid "License"
+msgstr "Лицензия"
+
+msgid "per unit"
+msgstr "за штуку"
+
+msgid "Hop & Barley. All rights reserved"
+msgstr "Хмель и Солод. Все права защищены"
+
+msgid "Hops"
+msgstr "Хмель"
+
+msgid "Price"
+msgstr "Цена"
+
+msgid "Sign In"
+msgstr "Войти"
+
+msgid "Total Price"
+msgstr "Итоговая цена"
+
+msgid "Home | Hop & Barley"
+msgstr "Главная | Hop & Barley"

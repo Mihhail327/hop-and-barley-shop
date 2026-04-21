@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.views.generic import ListView, DetailView
 from django.db.models import Q
 from .models import Product
+from orders.models import OrderItem
 
 def index(request):
     products = Product.objects.all()
@@ -23,12 +24,14 @@ class ProductListView(ListView):
         query = self.request.GET.get('q', '').strip()
         if query:
             queryset = queryset.filter(
-                Q(name__icontains=query) | Q(description__icontains=query)
+                Q(name__icontains=query) |
+                Q(description__icontains=query) |
+                Q(specifications__icontains=query)
             )
 
         types = self.request.GET.getlist('type')
         if types:
-            queryset = queryset.filter(category__name__in=types)
+            queryset = queryset.filter(category__slug__in=types)
 
         sort = self.request.GET.get('sort', 'new')
         if sort == 'price_asc':
@@ -40,8 +43,18 @@ class ProductListView(ListView):
 
         return queryset
 
+
 class ProductDetailView(DetailView):
     model = Product
-    # Используем новый шаблон детальной страницы
     template_name = 'products/product_detail.html'
     context_object_name = 'product'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Добавляем отзывы к контексту страницы
+        context['reviews'] = self.object.reviews.all().order_by('-created_at')
+
+        # Проверка: купил ли пользователь этот товар (для отображения формы отзыва)
+        if self.request.user.is_authenticated:
+            context['has_purchased'] = True
+        return context

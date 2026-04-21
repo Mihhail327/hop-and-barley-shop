@@ -1,0 +1,329 @@
+[
+  {
+    "model": "users.user",
+    "pk": 101,
+    "fields": {
+      "email": "reviewer1@example.com",
+      "username": "reviewer1",
+      "first_name": "Alex",
+      "last_name": "Brewer",
+      "is_active": true,
+      "is_staff": false,
+      "is_superuser": false
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 102,
+    "fields": {
+      "email": "reviewer2@example.com",
+      "username": "reviewer2",
+      "first_name": "Maria",
+      "last_name": "Hops",
+      "is_active": true,
+      "is_staff": false,
+      "is_superuser": false
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 103,
+    "fields": {
+      "email": "reviewer3@example.com",
+      "username": "reviewer3",
+      "first_name": "John",
+      "last_name": "Malt",
+      "is_active": true,
+      "is_staff": false,
+      "is_superuser": false
+    }
+  },
+  {
+    "model": "reviews.review",
+    "pk": 1,
+    "fields": {
+      "product": 1,
+      "user": 101,
+      "rating": 5,
+      "comment_ru": "Работает точно так, как заявлено.",
+      "comment_en": "Works exactly as expected.",
+      "created_at": "2026-04-08T02:44:48Z"
+    }
+  },
+  {
+    "model": "reviews.review",
+    "pk": 2,
+    "fields": {
+      "product": 1,
+      "user": 103,
+      "rating": 5,
+      "comment_ru": "Неплохо, но ожидал немного большего аромата.",
+      "comment_en": "Not bad, but I expected a slightly stronger aroma.",
+      "created_at": "2026-04-02T07:26:48Z"
+    }
+  },
+  {
+    "model": "reviews.review",
+    "pk": 3,
+    "fields": {
+      "product": 2,
+      "user": 101,
+      "rating": 5,
+      "comment_ru": "Просто супер, очень рекомендую!",
+      "comment_en": "Just super, highly recommend!",
+      "created_at": "2026-04-14T16:40:48Z"
+    }
+  },
+  {
+    "model": "reviews.review",
+    "pk": 4,
+    "fields": {
+      "product": 2,
+      "user": 103,
+      "rating": 5,
+      "comment_ru": "Топовая вещь, обязательно закажу еще раз.",
+      "comment_en": "Top-tier stuff, will definitely order again.",
+      "created_at": "2026-04-10T22:11:48Z"
+    }
+  },
+  {
+    "model": "reviews.review",
+    "pk": 5,
+    "fields": {
+      "product": 3,
+      "user": 101,
+      "rating": 5,
+      "comment_ru": "Супер! Рекомендую всем знакомым пивоварам.",
+      "comment_en": "Super! Recommending to all my brewer friends.",
+      "created_at": "2026-03-27T05:27:48Z"
+    }
+  },
+  {
+    "model": "reviews.review",
+    "pk": 6,
+    "fields": {
+      "product": 3,
+      "user": 103,
+      "rating": 4,
+      "comment_ru": "Топовая вещь, обязательно закажу еще раз.",
+      "comment_en": "Top-tier stuff, will definitely order again.",
+      "created_at": "2026-03-29T11:30:48Z"
+    }
+  },
+  {
+    "model": "reviews.review",
+    "pk": 7,
+    "fields": {
+      "product": 4,
+      "user": 102,
+      "rating": 5,
+      "comment_ru": "Всё пришло целым и невредимым, спасибо!",
+      "comment_en": "Everything arrived safe and sound, thanks!",
+      "created_at": "2026-03-24T00:45:48Z"
+    }
+  },
+  {
+    "model": "reviews.review",
+    "pk": 8,
+    "fields": {
+      "product": 4,
+      "user": 101,
+      "rating": 5,
+      "comment_ru": "Надежное дополнение к моему комплекту пивовара.",
+      "comment_en": "Solid addition to my brewing kit.",
+      "created_at": "2026-04-11T10:00:48Z"
+    }
+  },
+  {
+    "model": "reviews.review",
+    "pk": 9,
+    "fields": {
+      "product": 5,
+      "user": 102,
+      "rating": 5,
+      "comment_ru": "Работает точно так, как заявлено.",
+      "comment_en": "Works exactly as expected.",
+      "created_at": "2026-04-01T21:23:48Z"
+    }
+  },
+  {
+    "model": "reviews.review",
+    "pk": 10,
+    "fields": {
+      "product": 5,
+      "user": 101,
+      "rating": 5,
+      "comment_ru": "Отличная цена за такое стабильное качество.",
+      "comment_en": "Excellent price for such consistent quality.",
+      "created_at": "2026-03-21T22:31:48Z"
+    }
+  },
+  {
+    "model": "reviews.review",
+    "pk": 11,
+    "fields": {
+      "product": 6,
+      "user": 101,
+      "rating": 5,
+      "comment_ru": "Один из лучших ингредиентов, что я использовал.",
+      "comment_en": "One of the best ingredients I've ever used.",
+      "created_at": "2026-03-29T09:34:48Z"
+    }
+  },
+  {
+    "model": "reviews.review",
+    "pk": 12,
+    "fields": {
+      "product": 6,
+      "user": 102,
+      "rating": 5,
+      "comment_ru": "Просто супер, очень рекомендую!",
+      "comment_en": "Just super, highly recommend!",
+      "created_at": "2026-03-31T18:08:48Z"
+    }
+  },
+  {
+    "model": "reviews.review",
+    "pk": 13,
+    "fields": {
+      "product": 7,
+      "user": 101,
+      "rating": 5,
+      "comment_ru": "Топовая вещь, обязательно закажу еще раз.",
+      "comment_en": "Top-tier stuff, will definitely order again.",
+      "created_at": "2026-04-02T11:03:48Z"
+    }
+  },
+  {
+    "model": "reviews.review",
+    "pk": 14,
+    "fields": {
+      "product": 7,
+      "user": 102,
+      "rating": 5,
+      "comment_ru": "Всё пришло целым и невредимым, спасибо!",
+      "comment_en": "Everything arrived safe and sound, thanks!",
+      "created_at": "2026-03-23T10:32:48Z"
+    }
+  },
+  {
+    "model": "reviews.review",
+    "pk": 15,
+    "fields": {
+      "product": 8,
+      "user": 101,
+      "rating": 5,
+      "comment_ru": "Идеально подошло для моей последней варки.",
+      "comment_en": "Perfectly suited for my latest batch.",
+      "created_at": "2026-04-18T06:12:48Z"
+    }
+  },
+  {
+    "model": "reviews.review",
+    "pk": 16,
+    "fields": {
+      "product": 8,
+      "user": 102,
+      "rating": 5,
+      "comment_ru": "Надежное дополнение к моему комплекту пивовара.",
+      "comment_en": "Solid addition to my brewing kit.",
+      "created_at": "2026-04-16T20:58:48Z"
+    }
+  },
+  {
+    "model": "reviews.review",
+    "pk": 17,
+    "fields": {
+      "product": 9,
+      "user": 102,
+      "rating": 5,
+      "comment_ru": "Работает точно так, как заявлено.",
+      "comment_en": "Works exactly as expected.",
+      "created_at": "2026-04-08T15:27:48Z"
+    }
+  },
+  {
+    "model": "reviews.review",
+    "pk": 18,
+    "fields": {
+      "product": 9,
+      "user": 103,
+      "rating": 4,
+      "comment_ru": "Супер! Рекомендую всем знакомым пивоварам.",
+      "comment_en": "Super! Recommending to all my brewer friends.",
+      "created_at": "2026-04-16T20:29:48Z"
+    }
+  },
+  {
+    "model": "reviews.review",
+    "pk": 19,
+    "fields": {
+      "product": 10,
+      "user": 101,
+      "rating": 4,
+      "comment_ru": "Топовая вещь, обязательно закажу еще раз.",
+      "comment_en": "Top-tier stuff, will definitely order again.",
+      "created_at": "2026-04-18T17:33:48Z"
+    }
+  },
+  {
+    "model": "reviews.review",
+    "pk": 20,
+    "fields": {
+      "product": 10,
+      "user": 102,
+      "rating": 5,
+      "comment_ru": "Надежное дополнение к моему комплекту пивовара.",
+      "comment_en": "Solid addition to my brewing kit.",
+      "created_at": "2026-04-17T00:14:48Z"
+    }
+  },
+  {
+    "model": "reviews.review",
+    "pk": 21,
+    "fields": {
+      "product": 11,
+      "user": 101,
+      "rating": 5,
+      "comment_ru": "Идеально подошло для моей последней варки.",
+      "comment_en": "Perfectly suited for my latest batch.",
+      "created_at": "2026-04-12T20:49:48Z"
+    }
+  },
+  {
+    "model": "reviews.review",
+    "pk": 22,
+    "fields": {
+      "product": 11,
+      "user": 102,
+      "rating": 4,
+      "comment_ru": "Качество на высоте. Идеально подошло для моего рецепта.",
+      "comment_en": "Top-notch quality. Fit perfectly for my recipe.",
+      "created_at": "2026-04-12T16:25:48Z"
+    }
+  },
+  {
+    "model": "reviews.review",
+    "pk": 23,
+    "fields": {
+      "product": 12,
+      "user": 102,
+      "rating": 5,
+      "comment_ru": "Супер! Рекомендую всем знакомым пивоварам.",
+      "comment_en": "Super! Recommending to all my brewer friends.",
+      "created_at": "2026-04-19T00:00:48Z"
+    }
+  },
+  {
+    "model": "reviews.review",
+    "pk": 24,
+    "fields": {
+      "product": 12,
+      "user": 101,
+      "rating": 5,
+      "comment_ru": "Всё пришло целым и невредимым, спасибо!",
+      "comment_en": "Everything arrived safe and sound, thanks!",
+      "created_at": "2026-04-11T12:27:48Z"
+    }
+  }
+]

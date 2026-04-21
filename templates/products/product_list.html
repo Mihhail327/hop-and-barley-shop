@@ -5,7 +5,7 @@
 
 {% block content %}
 <div class="w-full max-w-[1312px] mx-auto pt-16 pb-16 px-6 lg:px-8 flex flex-col md:flex-row items-start gap-8">
-    <aside class="w-full md:w-[304px] glass-card p-6 flex flex-col gap-8 shrink-0">
+    <aside class="w-full md:w-[304px] glass-card p-6 flex flex-col gap-8 shrink-0 md:sticky md:top-24">
         <div class="flex flex-col gap-4">
             <h3 class="text-base font-semibold text-slate-900 dark:text-white">{% trans "Keywords" %}</h3>
             <div class="keywords-list flex flex-wrap gap-2">
@@ -16,24 +16,31 @@
             <h3 class="text-base font-semibold text-slate-900 dark:text-white">{% trans "Product Type" %}</h3>
             <div class="checkbox-group flex flex-col gap-3">
                 <label class="checkbox-container relative flex items-center gap-3 cursor-pointer group">
-                    <input type="checkbox" data-keyword="Hops" class="peer appearance-none w-5 h-5 border border-black/10 dark:border-white/20 rounded bg-white/50 dark:bg-slate-800/50 checked:bg-hop-green checked:border-hop-green transition-colors cursor-pointer">
-                    <i class="fa-solid fa-check absolute left-1 text-white text-xs opacity-0 peer-checked:opacity-100 pointer-events-none"></i>
-                    <span class="text-slate-800 dark:text-slate-200 group-hover:text-hop-emerald transition-colors">{% trans "Hops" %}</span>
+                    <input type="checkbox" name="type" value="hops"
+                           class="peer appearance-none w-5 h-5 border border-white/10 rounded bg-white/5 dark:bg-white/5 checked:bg-hop-green checked:border-hop-green transition-all cursor-pointer">
+                    <i class="fa-solid fa-check absolute left-1 text-slate-900 dark:text-white text-[10px] opacity-0 peer-checked:opacity-100 pointer-events-none transition-opacity"></i>
+                    <span class="text-sm font-medium text-slate-400 group-hover:text-hop-emerald transition-colors">{% trans "Hops" %}</span>
                 </label>
+
                 <label class="checkbox-container relative flex items-center gap-3 cursor-pointer group">
-                    <input type="checkbox" data-keyword="Malts" class="peer appearance-none w-5 h-5 border border-black/10 dark:border-white/20 rounded bg-white/50 dark:bg-slate-800/50 checked:bg-hop-green checked:border-hop-green transition-colors cursor-pointer">
-                    <i class="fa-solid fa-check absolute left-1 text-white text-xs opacity-0 peer-checked:opacity-100 pointer-events-none"></i>
-                    <span class="text-slate-800 dark:text-slate-200 group-hover:text-hop-emerald transition-colors">{% trans "Malts" %}</span>
+                    <input type="checkbox" name="type" value="malts"
+                           class="peer appearance-none w-5 h-5 border border-white/10 rounded bg-white/5 dark:bg-white/5 checked:bg-hop-green checked:border-hop-green transition-all cursor-pointer">
+                    <i class="fa-solid fa-check absolute left-1 text-slate-900 dark:text-white text-[10px] opacity-0 peer-checked:opacity-100 pointer-events-none transition-opacity"></i>
+                    <span class="text-sm font-medium text-slate-400 group-hover:text-hop-emerald transition-colors">{% trans "Malts" %}</span>
                 </label>
+
                 <label class="checkbox-container relative flex items-center gap-3 cursor-pointer group">
-                    <input type="checkbox" data-keyword="Yeast" class="peer appearance-none w-5 h-5 border border-black/10 dark:border-white/20 rounded bg-white/50 dark:bg-slate-800/50 checked:bg-hop-green checked:border-hop-green transition-colors cursor-pointer">
-                    <i class="fa-solid fa-check absolute left-1 text-white text-xs opacity-0 peer-checked:opacity-100 pointer-events-none"></i>
-                    <span class="text-slate-800 dark:text-slate-200 group-hover:text-hop-emerald transition-colors">{% trans "Yeast" %}</span>
+                    <input type="checkbox" name="type" value="yeast"
+                           class="peer appearance-none w-5 h-5 border border-white/10 rounded bg-white/5 dark:bg-white/5 checked:bg-hop-green checked:border-hop-green transition-all cursor-pointer">
+                    <i class="fa-solid fa-check absolute left-1 text-slate-900 dark:text-white text-[10px] opacity-0 peer-checked:opacity-100 pointer-events-none transition-opacity"></i>
+                    <span class="text-sm font-medium text-slate-400 group-hover:text-hop-emerald transition-colors">{% trans "Yeast" %}</span>
                 </label>
+
                 <label class="checkbox-container relative flex items-center gap-3 cursor-pointer group">
-                    <input type="checkbox" data-keyword="Adjuncts" class="peer appearance-none w-5 h-5 border border-black/10 dark:border-white/20 rounded bg-white/50 dark:bg-slate-800/50 checked:bg-hop-green checked:border-hop-green transition-colors cursor-pointer">
-                    <i class="fa-solid fa-check absolute left-1 text-white text-xs opacity-0 peer-checked:opacity-100 pointer-events-none"></i>
-                    <span class="text-slate-800 dark:text-slate-200 group-hover:text-hop-emerald transition-colors">{% trans "Adjuncts" %}</span>
+                    <input type="checkbox" name="type" value="kits"
+                           class="peer appearance-none w-5 h-5 border border-white/10 rounded bg-white/5 dark:bg-white/5 checked:bg-hop-green checked:border-hop-green transition-all cursor-pointer">
+                    <i class="fa-solid fa-check absolute left-1 text-slate-900 dark:text-white text-[10px] opacity-0 peer-checked:opacity-100 pointer-events-none transition-opacity"></i>
+                    <span class="text-sm font-medium text-slate-400 group-hover:text-hop-emerald transition-colors">{% trans "Brewing Kits" %}</span>
                 </label>
             </div>
         </div>
@@ -43,14 +50,21 @@
         <div class="flex flex-col xl:flex-row justify-between items-start xl:items-center gap-4">
             <div class="relative w-full max-w-[327px]">
                 <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
-                <input type="text" placeholder="{% trans 'Search' %}" class="w-full h-11 pl-11 pr-4 bg-white/50 dark:bg-white/5 backdrop-blur-md border border-black/10 dark:border-white/10 rounded-full text-slate-900 dark:text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-hop-green focus:border-hop-green transition-all" id="search-input">
-                <button class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-hop-green transition-colors" aria-label="{% trans 'Search' %}" id="search-button" style="display:none"></button>
+                <input type="text" placeholder="{% trans 'Search' %}"
+                       class="w-full h-11 pl-11 pr-4 bg-white/50 dark:bg-white/5 backdrop-blur-md border border-black/10 dark:border-white/10 rounded-full text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-hop-green transition-all"
+                       id="search-input">
             </div>
-            
+
             <div class="flex flex-wrap gap-2 sort-options">
-                <button class="sort-button active-sort px-4 py-2 bg-hop-green border border-hop-green text-white rounded-xl text-sm font-semibold transition-colors" data-sort="new"><span>{% trans "New" %}</span></button>
-                <button class="sort-button px-4 py-2 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 text-slate-600 dark:text-slate-300 rounded-xl text-sm font-semibold hover:bg-black/10 dark:hover:bg-white/10 transition-colors" data-sort="price_asc">{% trans "Price ascending" %}</button>
-                <button class="sort-button px-4 py-2 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 text-slate-600 dark:text-slate-300 rounded-xl text-sm font-semibold hover:bg-black/10 dark:hover:bg-white/10 transition-colors" data-sort="price_desc">{% trans "Price descending" %}</button>
+                <button class="sort-button active-sort px-4 py-2 bg-hop-green text-white rounded-xl text-sm font-semibold transition-colors"
+                        data-sort="new">{% trans "New" %}
+                </button>
+                <button class="sort-button px-4 py-2 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 text-slate-600 dark:text-slate-300 rounded-xl text-sm font-semibold hover:bg-black/10 dark:hover:bg-white/10 transition-colors"
+                        data-sort="price_asc">{% trans "Price ascending" %}
+                </button>
+                <button class="sort-button px-4 py-2 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 text-slate-600 dark:text-slate-300 rounded-xl text-sm font-semibold hover:bg-black/10 dark:hover:bg-white/10 transition-colors"
+                        data-sort="price_desc">{% trans "Price descending" %}
+                </button>
             </div>
         </div>
 
@@ -59,4 +73,144 @@
         </div>
     </section>
 </div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const searchInput = document.getElementById('search-input');
+        const checkboxes = document.querySelectorAll('.checkbox-group input[type="checkbox"]');
+        const sortButtons = document.querySelectorAll('.sort-button');
+        const productListContainer = document.getElementById('product-list-container');
+        const keywordsContainer = document.querySelector('.keywords-list');
+
+        // Функция для извлечения уникальных тегов из товаров
+        function generateKeywords() {
+            // Собираем все теги (например, из скрытых данных или заранее определенных)
+            const tags = ['USA', 'IPA', 'Citrus', 'Tropical', 'German', 'Organic'];
+
+            keywordsContainer.innerHTML = '';
+            tags.forEach(tag => {
+                const btn = document.createElement('button');
+                btn.className = 'px-3 py-1 bg-white/10 hover:bg-hop-green/20 border border-white/10 rounded-full text-xs text-slate-400 hover:text-hop-green transition-all';
+                btn.textContent = tag;
+                btn.onclick = () => {
+                    searchInput.value = tag; // Вставляем тег в поиск
+                    updateProducts();        // Запускаем фильтрацию
+                };
+                keywordsContainer.appendChild(btn);
+            });
+        }
+
+        generateKeywords();
+
+        let currentSort = 'new';
+
+        function updateProducts() {
+            const params = new URLSearchParams();
+
+            // 1. Поиск (Keyword или ввод)
+            if (searchInput.value) params.append('q', searchInput.value);
+
+            // 2. Категории (Product Type)
+            // Ищем только те чекбоксы, которые отмечены
+            const activeCheckboxes = document.querySelectorAll('input[name="type"]:checked');
+            activeCheckboxes.forEach(cb => {
+                params.append('type', cb.value); // Отправит ?type=Hops&type=Malts...
+            });
+
+            // 3. Сортировка
+            if (currentSort) params.append('sort', currentSort);
+
+            const url = `${window.location.pathname}?${params.toString()}`;
+
+            // Визуальный отклик (затемнение)
+            productListContainer.classList.add('opacity-50');
+
+            // 4. AJAX запрос
+            fetch(url, {
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            })
+                .then(response => response.text())
+                .then(html => {
+                    productListContainer.innerHTML = html;
+                    productListContainer.classList.remove('opacity-50');
+                    // Обновляем URL в браузере для красоты и SEO
+                    window.history.pushState({}, '', url);
+                })
+                .catch(error => {
+                    console.error('Error fetching products:', error);
+                    productListContainer.classList.remove('opacity-50');
+                });
+        }
+
+        // Слушатель для чекбоксов
+        checkboxes.forEach(cb => {
+            cb.addEventListener('change', updateProducts);
+        });
+
+        // Слушатель для поиска с задержкой (Debounce), чтобы не спамить сервер
+        let searchTimeout;
+        searchInput.addEventListener('input', () => {
+            clearTimeout(searchTimeout);
+            searchTimeout = setTimeout(updateProducts, 500);
+        });
+
+        // Слушатель для кнопок сортировки
+        sortButtons.forEach(btn => {
+            btn.addEventListener('click', function () {
+                // Визуальное переключение активной кнопки
+                sortButtons.forEach(b => b.classList.remove('active-sort', 'bg-hop-green', 'text-white'));
+                sortButtons.forEach(b => b.classList.add('bg-black/5', 'dark:bg-white/5', 'text-slate-600', 'dark:text-slate-300'));
+
+                this.classList.add('active-sort', 'bg-hop-green', 'text-white');
+                this.classList.remove('bg-black/5', 'dark:bg-white/5', 'text-slate-600', 'dark:text-slate-300');
+
+                currentSort = this.getAttribute('data-sort');
+                updateProducts();
+            });
+        });
+
+        // Обработка кликов по пагинации
+        productListContainer.addEventListener('click', function (e) {
+            const link = e.target.closest('.pagination__link');
+            if (link) {
+                e.preventDefault();
+                const page = link.getAttribute('data-page');
+
+                // Собираем текущие фильтры, чтобы не потерять их при переходе на другую страницу
+                const params = new URLSearchParams();
+
+                if (searchInput.value) params.append('q', searchInput.value);
+
+                const activeCheckboxes = document.querySelectorAll('input[name="type"]:checked');
+                activeCheckboxes.forEach(cb => params.append('type', cb.value));
+
+                if (currentSort) params.append('sort', currentSort);
+
+                // Добавляем номер страницы
+                params.append('page', page);
+
+                const url = `${window.location.pathname}?${params.toString()}`;
+
+                // Эффект загрузки
+                productListContainer.classList.add('opacity-50');
+
+                fetch(url, {
+                    headers: {'X-Requested-With': 'XMLHttpRequest'}
+                })
+                    .then(response => response.text())
+                    .then(html => {
+                        productListContainer.innerHTML = html;
+                        productListContainer.classList.remove('opacity-50');
+                        window.history.pushState({}, '', url);
+                        // Скролл вверх к началу списка товаров для удобства
+                        window.scrollTo({top: productListContainer.offsetTop - 100, behavior: 'smooth'});
+                    });
+            }
+        });
+    });
+</script>
 {% endblock %}

@@ -53,6 +53,10 @@ docker-compose exec web python manage.py loaddata categories.json products.json
 Откройте браузер и перейдите по адресу: http://localhost:8000
 
 Панель администратора: http://localhost:8000/shop_admin/ 
+
+GraphQL Sandbox: http://localhost:8000/graphql/
+
+REST API Docs: http://localhost:8000/api/docs/
 ---
 
 ##🌐 Локализация и переводы
@@ -73,13 +77,14 @@ docker-compose exec web python manage.py compilemessages
 
 ---
 
-## 📡 REST API & Документация
+## 📡 REST API & GraphQL
 Проект предоставляет полноценный программный интерфейс для интеграции с мобильными приложениями и внешними сервисами.
 
 * **Swagger UI (OpenAPI 3.0)**: Доступен по адресу `/api/docs/`. Здесь вы найдете описание всех эндпоинтов, форматов данных и сможете протестировать запросы в реальном времени.
 * **Авторизация**: Реализована на базе **JWT (JSON Web Token)**. Используйте эндпоинты `/api/users/login/` для получения пары Access/Refresh токенов.
 * **Права доступа**: Большинство эндпоинтов заказов защищено и требует заголовок `Authorization: Bearer <your_token>`.
-
+* **GraphQL: Доступен по адресу /graphql/. Позволяет выполнять гибкие вложенные запросы к каталогу товаров и категориям.
+* **Jwt AUTH: Авторизация реализована через JSON Web Tokens.
 ---
 
 ## ✅ Качество кода и Тестирование

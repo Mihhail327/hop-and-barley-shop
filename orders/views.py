@@ -1,10 +1,16 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.core.mail import send_mail
+from django.db import transaction
+from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.http import require_POST
+
 from products.models import Product
+
 from .cart import Cart
 from .forms import OrderCreateForm
-from .models import OrderItem
-from django.contrib.auth.decorators import login_required
+from .models import Order, OrderItem
+
 
 @require_POST
 def cart_add(request, product_id: int):
@@ -30,38 +36,59 @@ def cart_detail(request):
     cart = Cart(request)
     return render(request, 'cart.html', {'cart': cart})
 
+
 @login_required
 def order_create(request):
-    """Handles the checkout proccess.
-    Validates delivery data, saves the order, and migrates cart item to DB.
-    """
     cart = Cart(request)
     if request.method == 'POST':
         form = OrderCreateForm(request.POST)
         if form.is_valid():
-            # 1.Создаем объект заказа, но не сохраняем в БД сразуб
-            # так как нам нужно привязать пользователя
-            order = form.save(commit=False)
-            order.user = request.user
-            order.total_price = cart.get_total_price()
-            order.save()
+            try:
+                # Входим в атомарную транзакцию: либо всё сохранится, либо ничего
+                with transaction.atomic():
+                    order = form.save(commit=False)
+                    order.user = request.user
+                    order.total_price = cart.get_total_price()
+                    order.status = Order.Status.PAID  # Имитация оплаты
+                    order.save()
 
-            # 2. Переносим товары из корзины в OrderItem
-            for item in cart:
-                OrderItem.objects.create(
-                    order=order,
-                    product=item['product'],
-                    price=item['price'],
-                    quantity=item['quantity']
-                )
+                    subject = f'Заказ №{order.id} оформлен'
+                    message = f'Привет, {request.user.username}! Твой заказ на сумму {order.total_price} принят.'
+                    send_mail(
+                        subject,
+                        message,
+                        'shop@hopandbarley.com',
+                        [request.user.email, 'admin@hopandbarley.com'],  # Уведомляем обоих
+                        fail_silently=False,
+                    )
 
-            # 3. Очищаем корзину в сессии
-            cart.clear()
+                    for item in cart:
+                        product = item['product']
+                        quantity = item['quantity']
 
-            # 4. Пока редиректим на успех (создадим страницу позже)
-            return render(request, 'orders/created.html', {'order': order})
+                        # Валидация остатков (Select for update заблокирует строку в БД для безопасности)
+                        product_in_db = Product.objects.select_for_update().get(id=product.id)
+
+                        if product_in_db.stock < quantity:
+                            raise ValueError(f"Недостаточно товара: {product.name_ru}")
+
+                        # Списание
+                        product_in_db.stock -= quantity
+                        product_in_db.save()
+
+                        OrderItem.objects.create(
+                            order=order,
+                            product=product_in_db,
+                            price=item['price'],
+                            quantity=quantity
+                        )
+
+                    cart.clear()
+                    return render(request, 'orders/created.html', {'order': order})
+
+            except ValueError as e:
+                messages.error(request, str(e))
+                return redirect('orders:cart_detail')
     else:
-        # Если GET-запрос - просто показываем пустую форму
         form = OrderCreateForm()
-
     return render(request, 'checkout.html', {'cart': cart, 'form': form})

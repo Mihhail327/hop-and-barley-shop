@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.translation import get_language
 
+
 class Category(models.Model):
     name_ru = models.CharField(max_length=255, verbose_name='Название (RU)')
     name_en = models.CharField(max_length=255, verbose_name='Name (EN)', blank=True)

@@ -4,14 +4,35 @@
 {% block title %}{% trans "Order Created" %}{% endblock %}
 
 {% block content %}
-<div class="container" style="text-align: center; padding: 100px 20px;">
-    <i class="fa-solid fa-circle-check" style="font-size: 80px; color: #2ecc71; margin-bottom: 20px;"></i>
-    <h1>{% trans "Thank you for your order!" %}</h1>
-    <p>{% trans "Your order number is" %} <strong>#{{ order.id }}</strong>.</p>
-    <p>{% trans "We will contact you shortly for delivery details." %}</p>
-    
-    <a href="{% url 'products:product_list' %}" class="button button--primary" style="margin-top: 30px; display: inline-block;">
-        {% trans "Continue Shopping" %}
-    </a>
-</div>
+<main class="min-h-[70vh] flex items-center justify-center py-20">
+    <div class="container mx-auto px-4">
+        {# Карточка с подтверждением по центру #}
+        <div class="glass-card max-w-2xl mx-auto p-10 md:p-16 text-center flex flex-col items-center gap-6">
+
+            {# Иконка успеха #}
+            <div class="w-24 h-24 bg-hop-emerald/20 rounded-full flex items-center justify-center mb-4">
+                <i class="fa-solid fa-circle-check text-6xl text-hop-emerald"></i>
+            </div>
+
+            <h1 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white">
+                {% trans "Thank you for your order!" %}
+            </h1>
+
+            <div class="space-y-2">
+                <p class="text-xl text-slate-600 dark:text-slate-300">
+                    {% trans "Your order number is" %}
+                    <span class="font-mono font-bold text-hop-emerald">#{{ order.id }}</span>
+                </p>
+                <p class="text-slate-500 dark:text-slate-400">
+                    {% trans "We will contact you shortly for delivery details." %}
+                </p>
+            </div>
+
+            <a href="{% url 'products:product_list' %}"
+               class="mt-6 px-10 py-4 bg-hop-emerald hover:bg-emerald-600 text-white font-bold rounded-xl transition-all transform hover:scale-105 shadow-lg shadow-emerald-500/20">
+                {% trans "Continue Shopping" %}
+            </a>
+        </div>
+    </div>
+</main>
 {% endblock %}

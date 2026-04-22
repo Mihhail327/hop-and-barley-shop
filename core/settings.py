@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 import os
+import sys
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -37,14 +38,32 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-]
 
-INSTALLED_APPS += [
+    'modeltranslation',
+    'rest_framework',
+    'rest_framework_simplejwt',
+    'drf_spectacular',
+    'graphene_django',
+
     'users',
     'products',
     'orders',
     'reviews',
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Hop & Barley API',
+    'DESCRIPTION': 'API for craft brewing shop',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+}
 
 # Authentication & Authorization
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth
@@ -96,16 +115,25 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'myshop_db',
-        'USER': 'myshop_user',
-        'PASSWORD': 'myshop_password',
-        'HOST': 'db',
-        'PORT': '5432',
+
+if 'test' in sys.argv or 'pytest' in sys.modules:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'myshop_db',
+            'USER': 'myshop_user',
+            'PASSWORD': 'myshop_password',
+            'HOST': 'db',
+            'PORT': '5432',
+        }
+    }
 
 
 # Static files (CSS, JavaScript, Images)
@@ -165,3 +193,11 @@ USE_I18N = True
 USE_TZ = True
 
 LOCALE_PATHS = [BASE_DIR / 'locale']
+
+# Письма будут падать прямо в консоль Docker
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+DEFAULT_FROM_EMAIL = 'shop@hopandbarley.com'
+
+GRAPHENE = {
+    "SCHEMA": "hop_barley.schema.schema",
+}

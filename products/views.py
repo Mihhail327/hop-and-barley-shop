@@ -1,8 +1,9 @@
-from django.shortcuts import render
-from django.views.generic import ListView, DetailView
 from django.db.models import Q
+from django.shortcuts import render
+from django.views.generic import DetailView, ListView
+
 from .models import Product
-from orders.models import OrderItem
+
 
 def index(request):
     products = Product.objects.all()
@@ -20,13 +21,14 @@ class ProductListView(ListView):
 
     def get_queryset(self):
         queryset = super().get_queryset()
-        
+
         query = self.request.GET.get('q', '').strip()
         if query:
             queryset = queryset.filter(
-                Q(name__icontains=query) |
-                Q(description__icontains=query) |
-                Q(specifications__icontains=query)
+                Q(name_ru__icontains=query) |
+                Q(name_en__icontains=query) |
+                Q(description_ru__icontains=query) |
+                Q(description_en__icontains=query)
             )
 
         types = self.request.GET.getlist('type')

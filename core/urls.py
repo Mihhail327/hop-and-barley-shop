@@ -14,27 +14,36 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
-from django.urls import path, include
 from django.conf import settings
-from django.conf.urls.static import static
 from django.conf.urls.i18n import i18n_patterns
+from django.conf.urls.static import static
+from django.contrib import admin
+from django.urls import include, path
+from django.views.generic import TemplateView
+from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+from django.views.decorators.csrf import csrf_exempt
+from graphene_django.views import GraphQLView
 
 urlpatterns = [
     path('i18n/', include('django.conf.urls.i18n')),
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
+    path('api/docs/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
+    path("graphql/", csrf_exempt(GraphQLView.as_view(graphiql=True))),
 ]
 
-from django.views.generic import TemplateView
 
 urlpatterns += i18n_patterns(
     path('shop_admin/', admin.site.urls),
     path('', TemplateView.as_view(template_name='home.html'), name='home'),
-    path('catalog/', include('products.urls')),
-    path('users/', include('users.urls')),
-    path('orders/', include('orders.urls')),
-    path('reviews/', include('reviews.urls')),
+    path('catalog/', include(('products.urls', 'products'))),
+    path('users/', include(('users.urls', 'users'))),
+    path('orders/', include(('orders.urls', 'orders'))),
+    path('reviews/', include(('reviews.urls', 'reviews'))),
 )
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

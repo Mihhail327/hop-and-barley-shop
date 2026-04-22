@@ -1,5 +1,7 @@
 from django.contrib import admin
-from .models import Product, Category
+
+from .models import Category, Product
+
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
@@ -11,7 +13,7 @@ class CategoryAdmin(admin.ModelAdmin):
     list_filter = ('created_at',)
 
 @admin.register(Product)
-class ProductAdmin(admin.ModelAdmin):  
+class ProductAdmin(admin.ModelAdmin):
     # Показываем оба языка в списке товаров
     list_display = ('name_ru', 'name_en', 'price', 'category', 'is_active', 'stock', 'created_at')
     prepopulated_fields = {'slug': ('name_ru',)}

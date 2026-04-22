@@ -1,7 +1,7 @@
 {% load static %}
 {% load i18n %}
 <!DOCTYPE html>
-<html lang="{{ LANGUAGE_CODE }}" class="dark">
+<html lang="{{ LANGUAGE_CODE }}" class="dark scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -26,6 +26,9 @@
                         'hop-green': '#34d399',
                         'hop-dark': '#0f172a',
                         'hop-emerald': '#10b981',
+                        // Новые мягкие бежевые оттенки
+                        'hop-beige': '#fdfaf5',    // Основной фон (очень светлый беж)
+                        'hop-cream': '#f5f0e6',    // Фон для инпутов или элементов (чуть темнее)
                     },
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
@@ -38,40 +41,45 @@
         }
     </script>
     <style type="text/tailwindcss">
-        @layer components {
-            .glass-card {
-                @apply bg-white/10 dark:bg-slate-900/40 backdrop-blur-md border border-slate-200 dark:border-white/20 rounded-2xl shadow-xl;
-            }
-
-            .form-input {
-                @apply w-full p-3 bg-white/80 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-white focus:ring-2 focus:ring-hop-green outline-none transition-all;
-            }
-
-            /* Принудительная инверсия, если dark:invert не сработает в CDN */
-            .dark img[src*="icons/"] {
-                filter: brightness(0) invert(1);
-            }
-
-            /* Сделаем бейдж корзины контрастнее для темной темы */
-            .dark .cart-badge-fix {
-                @apply bg-hop-green text-slate-900 border-slate-900;
-            }
+    @layer components {
+        .glass-card {
+            /* Светлая тема: теплый белый фон с легкой бежевой прозрачностью */
+            @apply bg-white/80 backdrop-blur-lg border border-orange-100 rounded-2xl shadow-sm transition-colors duration-300;
+            @apply dark:bg-slate-900/40 dark:border-white/20 dark:shadow-xl;
         }
-    </style>
+
+        .form-input {
+            /* Светлая тема: кремовый фон для полей ввода */
+            @apply w-full p-3 bg-hop-cream/50 border border-orange-100/50 rounded-xl text-slate-800 focus:ring-2 focus:ring-hop-green outline-none transition-all;
+            @apply dark:bg-slate-800/50 dark:border-slate-700 dark:text-white;
+        }
+
+        /* Принудительная инверсия иконок для темной темы */
+        .dark img[src*="icons/"] {
+            filter: brightness(0) invert(1);
+        }
+
+        /* Бейдж корзины: инвертируем цвета для лучшей видимости */
+        .cart-badge {
+            @apply bg-hop-emerald text-white;
+            @apply dark:bg-hop-green dark:text-slate-900;
+        }
+    }
+</style>
 </head>
-<body class="bg-slate-50 dark:bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] dark:from-indigo-950 dark:via-hop-dark dark:to-hop-dark text-slate-900 dark:text-white min-h-screen m-0 p-0 font-sans transition-colors duration-300">
+<body class="bg-hop-beige dark:bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] dark:from-indigo-950 dark:via-hop-dark dark:to-hop-dark text-slate-900 dark:text-white min-h-screen m-0 p-0 font-sans transition-colors duration-300">
 <!-- Header -->
 <header class="w-full h-[100px] px-8 md:px-16 bg-white/70 dark:bg-slate-900/70 backdrop-blur-md border-b border-black/10 dark:border-white/10 flex justify-center items-center sticky top-0 z-50">
-    <div class="w-full max-w-[1312px] flex justify-between items-center">
+    <div class="w-full max-w-[1312px] flex justify-between items-center gap-4">
 
-        {# Logo #}
-        <a href="{% url 'home' %}" class="flex items-center gap-6">
+        {# Logo - flex-shrink-0 не дает логотипу сжиматься #}
+        <a href="{% url 'home' %}" class="flex items-center gap-6 flex-shrink-0">
             <img src="{% static 'img/logo.svg' %}" alt="Hop & Barley Logo" class="w-[26px] h-[37.52px] rounded-lg">
             <p class="text-2xl font-bold leading-none text-slate-900 dark:text-white">Hop & Barley</p>
         </a>
 
-        {# Language & Theme #}
-        <div class="flex items-center gap-4">
+        {# Language & Theme - добавили ml-12, чтобы отодвинуть блок вправо от логотипа #}
+        <div class="flex items-center gap-4 ml-12 flex-shrink-0">
             <form action="{% url 'set_language' %}" method="post" class="inline">
                 {% csrf_token %}
                 <input name="next" type="hidden" value="{{ request.get_full_path }}">
@@ -97,37 +105,62 @@
             </button>
         </div>
 
-        {# Navigation #}
-        <nav class="hidden lg:block w-[640px]">
-            <ul class="list-none m-0 p-0 flex justify-between items-center">
-                <li><a href="{% url 'products:product_list' %}" class="p-2 text-base leading-none font-medium text-slate-900 dark:text-white hover:text-hop-emerald transition-colors">{% trans "Products" %}</a></li>
-                <li><a href="#" class="p-2 text-base leading-none font-medium text-slate-900 dark:text-white hover:text-hop-emerald transition-colors">{% trans "Guides & Recipes" %}</a></li>
-                <li><a href="#" class="p-2 text-base leading-none font-medium text-slate-900 dark:text-white hover:text-hop-emerald transition-colors">{% trans "Community" %}</a></li>
-                <li><a href="#" class="p-2 text-base leading-none font-medium text-slate-900 dark:text-white hover:text-hop-emerald transition-colors">{% trans "Resources" %}</a></li>
-                <li><a href="#" class="p-2 text-base leading-none font-medium text-slate-900 dark:text-white hover:text-hop-emerald transition-colors">{% trans "Contact" %}</a></li>
+        {# Navigation - flex-1 занимает всё свободное пространство по центру #}
+        <nav class="hidden lg:flex items-center justify-center flex-1 mx-4 min-w-0">
+            <ul class="flex items-center justify-center gap-x-2 xl:gap-x-6 list-none m-0 p-0">
+                <li>
+                    <a href="{% url 'products:product_list' %}"
+                       class="whitespace-nowrap px-2 py-1 text-sm xl:text-base font-medium text-slate-900 dark:text-white hover:text-hop-emerald transition-colors">
+                        {% trans "Products" %}
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'products:guides_recipes' %}"
+                       class="whitespace-nowrap px-2 py-1 text-sm xl:text-base font-medium text-slate-900 dark:text-white hover:text-hop-emerald transition-colors">
+                        {% trans "Guides & Recipes" %}
+                    </a>
+                </li>
+                <li>
+                    <a href="/api/docs/" target="_blank"
+                       class="whitespace-nowrap px-2 py-1 text-sm xl:text-base font-medium text-slate-900 dark:text-white hover:text-hop-emerald transition-colors">
+                        {% trans "API Docs" %}
+                    </a>
+                </li>
+                <li>
+                    <a href="#footer"
+                       class="whitespace-nowrap px-2 py-1 text-sm xl:text-base font-medium text-slate-900 dark:text-white hover:text-hop-emerald transition-colors">
+                        {% trans "Contact" %}
+                    </a>
+                </li>
             </ul>
         </nav>
 
-        {# Auth & Cart #}
-        <div class="flex items-center gap-5">
+        {# Auth & Cart - flex-shrink-0 сохраняет иконки в правой части #}
+        <div class="flex items-center gap-4 flex-shrink-0">
             {% if user.is_authenticated %}
-                <div>
-                    <a href="#" class="hover:opacity-80 transition-opacity" aria-label="{% trans 'My Account' %}">
-                        <img src="{% static 'img/icons/User_alt.svg' %}" alt="User Account" class="w-6 h-6 dark:invert">
-                    </a>
-                </div>
+            <div class="flex items-center gap-3 border-r border-black/10 dark:border-white/10 pr-4">
+                <a href="{% url 'users:profile' %}" class="hover:opacity-80 transition-opacity" title="{% trans 'My Account' %}">
+                    <img src="{% static 'img/icons/User_alt.svg' %}" alt="User Account" class="w-6 h-6 dark:invert">
+                </a>
+                <form action="{% url 'users:logout' %}" method="post" class="inline">
+                    {% csrf_token %}
+                    <button type="submit" class="text-slate-500 hover:text-red-500 transition-colors p-1" title="{% trans 'Logout' %}">
+                        <i class="fa-solid fa-right-from-bracket text-lg"></i>
+                    </button>
+                </form>
+            </div>
             {% else %}
-                <div class="w-32 flex items-center justify-end">
-                    <a href="{% url 'users:login' %}"
-                       class="px-5 py-2.5 bg-black/5 dark:bg-white/10 border border-black/20 dark:border-white/20 text-slate-900 dark:text-white font-semibold rounded-xl hover:bg-slate-200 dark:hover:bg-slate-700 transition-all flex items-center justify-center whitespace-nowrap">
-                       {% trans "Sign in" %}
-                    </a>
-                </div>
+            <div class="flex items-center">
+                <a href="{% url 'users:login' %}"
+                   class="px-4 py-2 bg-black/5 dark:bg-white/10 border border-black/10 dark:border-white/10 text-slate-900 dark:text-white text-sm font-semibold rounded-xl hover:bg-slate-200 dark:hover:bg-slate-700 transition-all">
+                    {% trans "Sign in" %}
+                </a>
+            </div>
             {% endif %}
 
             <div>
-                <a href="{% url 'orders:cart_detail' %}" class="relative flex items-center hover:opacity-80 transition-opacity" aria-label="{% trans 'Shopping Cart' %}">
-                    <img src="{% static 'img/icons/Shopping_bag.svg' %}" alt="Shopping Cart" class="w-6 h-6 dark:invert">
+                <a href="{% url 'orders:cart_detail' %}" class="relative flex items-center hover:opacity-80 transition-opacity">
+                    <img src="{% static 'img/icons/Shopping_bag.svg' %}" alt="Cart" class="w-6 h-6 dark:invert">
                     {% if cart|length > 0 %}
                     <span class="absolute -top-2 -right-2 bg-hop-emerald text-white text-[10px] font-bold w-5 h-5 flex items-center justify-center rounded-full border-2 border-white dark:border-slate-900 shadow-sm">
                         {{ cart|length }}
@@ -145,7 +178,7 @@
 </main>
 
 <!-- Footer -->
-<footer class="w-full px-8 md:px-16 pt-24 pb-12 bg-white dark:bg-slate-900/90 border-t border-slate-200 dark:border-white/10 flex flex-col items-center mt-auto">
+<footer id="footer" class="w-full px-8 md:px-16 pt-24 pb-12 bg-hop-cream/40 dark:bg-slate-900/90 border-t border-orange-100/30 flex flex-col items-center mt-auto">
 
     {# Иллюстрация хмеля #}
     <div class="relative w-full max-w-[484px] mb-12">
@@ -153,16 +186,43 @@
              class="w-full h-auto object-contain select-none pointer-events-none">
     </div>
 
+    {# БЛОК КОНТАКТОВ (Новый) #}
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16 w-full max-w-[1000px] text-center">
+        <div class="flex flex-col items-center gap-2">
+            <i class="fa-solid fa-envelope text-2xl text-hop-emerald mb-2"></i>
+            <h4 class="font-bold uppercase tracking-wider text-sm text-slate-400">Email</h4>
+            <a href="mailto:info@hopbarley.com" class="text-lg hover:text-hop-emerald transition-colors">info@hopbarley.com</a>
+        </div>
+        <div class="flex flex-col items-center gap-2 border-x border-black/5 dark:border-white/5">
+            <i class="fa-solid fa-location-dot text-2xl text-hop-emerald mb-2"></i>
+            <h4 class="font-bold uppercase tracking-wider text-sm text-slate-400">{% trans "Office" %}</h4>
+            <p class="text-lg">Tallinn, Harju, Estonia</p>
+        </div>
+        <div class="flex flex-col items-center gap-2">
+            <i class="fa-solid fa-phone text-2xl text-hop-emerald mb-2"></i>
+            <h4 class="font-bold uppercase tracking-wider text-sm text-slate-400">{% trans "Phone" %}</h4>
+            <a href="tel:+3720000000" class="text-lg hover:text-hop-emerald transition-colors">+372 555-55-44</a>
+        </div>
+    </div>
+
     {# Навигация #}
     <nav class="w-full max-w-[800px] mb-12">
-    <ul class="flex flex-wrap justify-center items-center gap-x-12 gap-y-4 text-center">
-        <li><a href="#" class="text-base font-medium text-slate-600 dark:text-slate-300 hover:text-hop-emerald transition-colors">{% trans "Contact" %}</a></li>
-        <li><a href="#" class="text-base font-medium text-slate-600 dark:text-slate-300 hover:text-hop-emerald transition-colors">{% trans "FAQ" %}</a></li>
-        <li><a href="#" class="text-base font-medium text-slate-600 dark:text-slate-300 hover:text-hop-emerald transition-colors">{% trans "Community" %}</a></li>
-        <li><a href="#" class="text-base font-medium text-slate-600 dark:text-slate-300 hover:text-hop-emerald transition-colors">{% trans "Resources" %}</a></li>
-        <li><a href="#" class="text-base font-medium text-slate-600 dark:text-slate-300 hover:text-hop-emerald transition-colors">{% trans "License" %}</a></li>
-    </ul>
-</nav>
+        <ul class="flex flex-wrap justify-center items-center gap-x-12 gap-y-4 text-center">
+            <li><a href="{% url 'products:product_list' %}"
+                   class="text-base font-medium text-slate-600 dark:text-slate-300 hover:text-hop-emerald transition-colors">{% trans "Catalog" %}</a></li>
+
+            <li><a href="{% url 'users:profile' %}"
+                   class="text-base font-medium text-slate-600 dark:text-slate-300 hover:text-hop-emerald transition-colors">{% trans "Orders" %}</a></li>
+
+            <li><a href="#contact"
+                   class="text-base font-medium text-slate-600 dark:text-slate-300 hover:text-hop-emerald transition-colors">{% trans "Contact" %}</a></li>
+
+            <li><a href="/api/docs/" target="_blank"
+                   class="text-base font-medium text-slate-600 dark:text-slate-300 hover:text-hop-emerald transition-colors">{% trans "API Docs" %}</a></li>
+            <li><a href="/graphql/" target="_blank"
+                   class="whitespace-nowrap px-2 py-1 text-sm xl:text-base font-medium text-slate-900 dark:text-white hover:text-hop-emerald transition-colors">GraphQL</a></li>
+        </ul>
+    </nav>
 
     {# Копирайт #}
     <div class="pt-8 border-t border-black/5 dark:border-white/5 w-full flex justify-center">

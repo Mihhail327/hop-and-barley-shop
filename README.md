@@ -85,7 +85,7 @@ docker-compose exec web python manage.py compilemessages
 * **Авторизация**: Реализована на базе **JWT (JSON Web Token)**. Используйте эндпоинты `/api/users/login/` для получения пары Access/Refresh токенов.
 * **Права доступа**: Большинство эндпоинтов заказов защищено и требует заголовок `Authorization: Bearer <your_token>`.
 * **GraphQL**: Доступен по адресу /graphql/. Позволяет выполнять гибкие вложенные запросы к каталогу товаров и категориям.
-* **Jwt AUTH**: Авторизация реализована через JSON Web Tokens.
+
 ---
 
 ## ✅ Качество кода и Тестирование

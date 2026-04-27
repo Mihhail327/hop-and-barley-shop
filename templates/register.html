@@ -19,7 +19,7 @@
     <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-hop-green/15 rounded-full blur-[140px] pointer-events-none z-0"></div>
 
     {# 3. Карточка формы (Сверху всех слоев - z-10) #}
-    <div class="w-full max-w-[400px] z-10">
+    <div class="w-full max-w-[400px] z-10 relative z-20">
         {# Усиливаем границу и тень для Glassmorphism на темном фоне #}
         <div class="glass-card p-8 md:p-10 border border-white/20 shadow-2xl bg-white/5 dark:bg-slate-900/50 backdrop-blur-xl">
 
@@ -38,40 +38,41 @@
             </div>
             {% endif %}
 
-            <form method="post" class="space-y-5">
+            <form method="post" class="space-y-4">
                 {% csrf_token %}
 
+                {% for field in form %}
                 <div class="space-y-1.5">
-                    <label class="text-[11px] font-bold text-slate-400 uppercase tracking-wider ml-1">Email</label>
-                    <div class="relative">
-                        <i class="fa-solid fa-envelope absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
-                        <input type="email" name="username" required
-                               class="form-input pl-11 bg-white/70 dark:bg-slate-800/60 border-black/10 dark:border-white/10 text-slate-900 dark:text-white"
-                               placeholder="email@example.com">
-                    </div>
-                </div>
-
-                <div class="space-y-1.5">
-                    <label class="text-[11px] font-bold text-slate-400 uppercase tracking-wider ml-1">{% trans "Password" %}</label>
-                    <div class="relative">
-                        <i class="fa-solid fa-lock absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
-                        <input type="password" name="password" required
-                               class="form-input pl-11 bg-white/70 dark:bg-slate-800/60 border-black/10 dark:border-white/10 text-slate-900 dark:text-white"
-                               placeholder="••••••••">
-                    </div>
-                </div>
-
-                <div class="flex items-center justify-between pt-1">
-                    <label class="flex items-center gap-2 cursor-pointer group">
-                        <input type="checkbox" class="w-4 h-4 rounded border-slate-300 text-hop-green focus:ring-hop-green">
-                        <span class="text-xs text-slate-300 group-hover:text-white transition-colors">{% trans "Remember me" %}</span>
+                    <label class="text-[11px] font-bold text-slate-400 uppercase tracking-wider ml-1">
+                        {{ field.label }}
                     </label>
-                    <a href="#" class="text-xs font-semibold text-hop-emerald hover:underline">{% trans "Forgot password?" %}</a>
+                    <div class="relative">
+                        <i class="fa-solid
+                {% if 'email' in field.name %}fa-envelope
+                {% elif 'password' in field.name %}fa-lock
+                {% elif 'user' in field.name %}fa-user
+                {% else %}fa-id-card{% endif %}
+                absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+
+                        {# Рендерим само поле. Классы Tailwind подтянутся из CustomUserCreationForm.__init__ #}
+                        {{ field }}
+                    </div>
+
+                    {% if field.errors %}
+                    {% for error in field.errors %}
+                    <p class="text-[10px] text-red-400 mt-1 ml-1">{{ error }}</p>
+                    {% endfor %}
+                    {% endif %}
+
+                    {% if field.help_text %}
+                    <p class="text-[10px] text-slate-500 mt-1 ml-1">{{ field.help_text|safe }}</p>
+                    {% endif %}
                 </div>
+                {% endfor %}
 
                 <button type="submit"
                         class="w-full py-4 bg-gradient-to-r from-hop-green to-hop-emerald text-white font-bold rounded-xl shadow-lg shadow-hop-green/20 hover:-translate-y-0.5 transition-all mt-4">
-                    {% trans "Sign In" %}
+                    {% trans "Create Account" %}
                 </button>
             </form>
 

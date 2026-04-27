@@ -11,6 +11,15 @@
             <div class="keywords-list flex flex-wrap gap-2">
             </div>
         </div>
+        <div class="flex flex-col gap-4">
+            <h3 class="text-base font-semibold text-slate-900 dark:text-white">{% trans "Price Range" %}</h3>
+            <div class="flex gap-2">
+                <input type="number" id="min-price" placeholder="{% trans 'Min' %}"
+                        class="w-1/2 h-10 px-3 bg-white/5 border border-white/10 rounded-lg text-sm text-white focus:ring-hop-green">
+                <input type="number" id="max-price" placeholder="{% trans 'Max' %}"
+                        class="w-1/2 h-10 px-3 bg-white/5 border border-white/10 rounded-lg text-sm text-white focus:ring-hop-green">
+            </div>
+        </div>
 
         <div class="flex flex-col gap-4">
             <h3 class="text-base font-semibold text-slate-900 dark:text-white">{% trans "Product Type" %}</h3>
@@ -23,10 +32,10 @@
                 </label>
 
                 <label class="checkbox-container relative flex items-center gap-3 cursor-pointer group">
-                    <input type="checkbox" name="type" value="malts"
+                    <input type="checkbox" name="type" value="malt"
                            class="peer appearance-none w-5 h-5 border border-white/10 rounded bg-white/5 dark:bg-white/5 checked:bg-hop-green checked:border-hop-green transition-all cursor-pointer">
                     <i class="fa-solid fa-check absolute left-1 text-slate-900 dark:text-white text-[10px] opacity-0 peer-checked:opacity-100 pointer-events-none transition-opacity"></i>
-                    <span class="text-sm font-medium text-slate-400 group-hover:text-hop-emerald transition-colors">{% trans "Malts" %}</span>
+                    <span class="text-sm font-medium text-slate-400 group-hover:text-hop-emerald transition-colors">{% trans "Malt" %}</span>
                 </label>
 
                 <label class="checkbox-container relative flex items-center gap-3 cursor-pointer group">
@@ -60,6 +69,8 @@
                         data-sort="new">{% trans "New" %}
                 </button>
                 <button class="sort-button px-4 py-2 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 text-slate-600 dark:text-slate-300 rounded-xl text-sm font-semibold hover:bg-black/10 dark:hover:bg-white/10 transition-colors"
+                        data-sort="popular">{% trans "Popular" %}</button>
+                <button class="sort-button px-4 py-2 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 text-slate-600 dark:text-slate-300 rounded-xl text-sm font-semibold hover:bg-black/10 dark:hover:bg-white/10 transition-colors"
                         data-sort="price_asc">{% trans "Price ascending" %}
                 </button>
                 <button class="sort-button px-4 py-2 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 text-slate-600 dark:text-slate-300 rounded-xl text-sm font-semibold hover:bg-black/10 dark:hover:bg-white/10 transition-colors"
@@ -83,6 +94,17 @@
         const sortButtons = document.querySelectorAll('.sort-button');
         const productListContainer = document.getElementById('product-list-container');
         const keywordsContainer = document.querySelector('.keywords-list');
+        // Находим инпуты цены
+        const minPriceInput = document.getElementById('min-price');
+        const maxPriceInput = document.getElementById('max-price');
+
+        // Запускаем обновление при вводе цифр (с задержкой, чтобы не дергать сервер слишком часто)
+        [minPriceInput, maxPriceInput].forEach(input => {
+            input.addEventListener('input', () => {
+                clearTimeout(searchTimeout);
+                searchTimeout = setTimeout(updateProducts, 500);
+            });
+        });
 
         // Функция для извлечения уникальных тегов из товаров
         function generateKeywords() {
@@ -109,25 +131,32 @@
         function updateProducts() {
             const params = new URLSearchParams();
 
-            // 1. Поиск (Keyword или ввод)
+            // Читаем значения из новых полей цены
+            const minPrice = document.getElementById('min-price').value;
+            const maxPrice = document.getElementById('max-price').value;
+
+            // 1. Поиск (уже было)
             if (searchInput.value) params.append('q', searchInput.value);
 
-            // 2. Категории (Product Type)
-            // Ищем только те чекбоксы, которые отмечены
+            // 2. Категории (уже было)
             const activeCheckboxes = document.querySelectorAll('input[name="type"]:checked');
             activeCheckboxes.forEach(cb => {
-                params.append('type', cb.value); // Отправит ?type=Hops&type=Malts...
+                params.append('type', cb.value);
             });
 
-            // 3. Сортировка
+            // 3. ЦЕНЫ (Новое! Передаем на бэкенд)
+            if (minPrice) params.append('min_price', minPrice);
+            if (maxPrice) params.append('max_price', maxPrice);
+
+            // 4. Сортировка (включая 'popular')
             if (currentSort) params.append('sort', currentSort);
 
             const url = `${window.location.pathname}?${params.toString()}`;
 
-            // Визуальный отклик (затемнение)
+            // Визуальный отклик
             productListContainer.classList.add('opacity-50');
 
-            // 4. AJAX запрос
+            // 5. AJAX запрос
             fetch(url, {
                 headers: {
                     'X-Requested-With': 'XMLHttpRequest'
@@ -137,7 +166,6 @@
                 .then(html => {
                     productListContainer.innerHTML = html;
                     productListContainer.classList.remove('opacity-50');
-                    // Обновляем URL в браузере для красоты и SEO
                     window.history.pushState({}, '', url);
                 })
                 .catch(error => {

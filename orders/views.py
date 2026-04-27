@@ -44,35 +44,29 @@ def order_create(request):
         form = OrderCreateForm(request.POST)
         if form.is_valid():
             try:
-                # Входим в атомарную транзакцию: либо всё сохранится, либо ничего
                 with transaction.atomic():
                     order = form.save(commit=False)
                     order.user = request.user
                     order.total_price = cart.get_total_price()
-                    order.status = Order.Status.PAID  # Имитация оплаты
+                    order.status = Order.Status.PAID
                     order.save()
 
+                    # --- ПОДГОТОВКА ПИСЬМА ---
                     subject = f'Заказ №{order.id} оформлен'
                     message = f'Привет, {request.user.username}! Твой заказ на сумму {order.total_price} принят.'
-                    send_mail(
-                        subject,
-                        message,
-                        'shop@hopandbarley.com',
-                        [request.user.email, 'admin@hopandbarley.com'],  # Уведомляем обоих
-                        fail_silently=False,
-                    )
+                    recipient_list = [request.user.email, 'admin@hopandbarley.com']
 
                     for item in cart:
                         product = item['product']
                         quantity = item['quantity']
 
-                        # Валидация остатков (Select for update заблокирует строку в БД для безопасности)
+                        # Блокируем строку товара для проверки (Select for update)
                         product_in_db = Product.objects.select_for_update().get(id=product.id)
 
                         if product_in_db.stock < quantity:
                             raise ValueError(f"Недостаточно товара: {product.name_ru}")
 
-                        # Списание
+                        # Списание остатков
                         product_in_db.stock -= quantity
                         product_in_db.save()
 
@@ -82,6 +76,15 @@ def order_create(request):
                             price=item['price'],
                             quantity=quantity
                         )
+
+                    # --- ОТПРАВКА ТОЛЬКО ПОСЛЕ УСПЕШНОГО КОММИТА ---
+                    transaction.on_commit(lambda: send_mail(
+                        subject,
+                        message,
+                        'shop@hopandbarley.com',
+                        recipient_list,
+                        fail_silently=False,
+                    ))
 
                     cart.clear()
                     return render(request, 'orders/created.html', {'order': order})

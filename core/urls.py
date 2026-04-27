@@ -25,8 +25,10 @@ from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from django.views.decorators.csrf import csrf_exempt
 from graphene_django.views import GraphQLView
 
+
 urlpatterns = [
     path('i18n/', include('django.conf.urls.i18n')),
+    path('api/', include('api.urls')),
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),

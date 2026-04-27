@@ -1,20 +1,20 @@
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import redirect, render
 
-from .forms import UserEditForm
+from .forms import UserEditForm, CustomUserCreationForm
 
 
 def register_view(request):
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
             login(request, user)
             return redirect('products:product_list')
     else:
-        form = UserCreationForm()
+        form = CustomUserCreationForm()
     return render(request, 'register.html', {'form': form})
 
 

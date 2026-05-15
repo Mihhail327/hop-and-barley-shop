@@ -35,7 +35,7 @@
             <div class="order-table-row flex p-4 border-t border-white/5 hover:bg-white/5 transition-colors items-center">
               <div class="order-table-cell flex-1">
                 <span class="order-id block font-mono text-hop-emerald">#{{ order.id }}</span>
-                <span class="order-date text-xs text-slate-400">{{ order.created|date:"d M Y" }}</span>
+                <span class="order-date text-xs text-slate-400">{{ order.created_at|date:"d M Y" }}</span>
               </div>
               <div class="order-table-cell flex-1 text-center">
                 <span class="order-status px-3 py-1 rounded-full text-xs 
@@ -46,7 +46,7 @@
                 </span>
               </div>
               <div class="order-table-cell flex-1 text-right font-bold">
-                ${{ order.get_total_cost }}
+                ${{ order.total_price }}
               </div>
             </div>
             {% empty %}

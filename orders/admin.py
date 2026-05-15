@@ -19,17 +19,20 @@ class OrderAdmin(admin.ModelAdmin):
 
     @admin.action(description='Отметить как доставлено')
     def make_delivered(self, request, queryset):
-        queryset.update(status='delivered')
+        queryset.update(status='DELIVERED')
 
     # Аналитика в футере списка
     def changelist_view(self, request, extra_context=None):
-        response = super().changelist_view(request, extra_context=extra_context)
-        try:
-            qs = response.context_data['cl'].queryset
-        except (AttributeError, KeyError):
-            return response
-
-        # Считаем общую выручку по отфильтрованным заказам
+        # 1. Сначала готовим контекст (ИСПРАВЛЕНО: правильное имя переменной)
         extra_context = extra_context or {}
-        extra_context['total_revenue'] = qs.aggregate(Sum('total_price'))['total_price__sum']
+
+        # 2. Делаем расчеты ДО вызова super()
+        # Получаем текущий набор данных (с учетом фильтров админки)
+        qs = self.get_queryset(request)
+
+        # Считаем сумму
+        revenue = qs.aggregate(Sum('total_price'))['total_price__sum']
+        extra_context['total_revenue'] = revenue or 0  # Добавили or 0 на случай пустой базы
+
+        # 3. Вызываем super() ОДИН РАЗ в самом конце
         return super().changelist_view(request, extra_context=extra_context)

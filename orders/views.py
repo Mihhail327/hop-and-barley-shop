@@ -14,16 +14,18 @@ from .models import Order, OrderItem
 
 @require_POST
 def cart_add(request, product_id: int):
-    """Controller to add or update items in the session-based cart."""
     cart = Cart(request)
     # Ищем продукт или возвращаем 404, если ID подделан
     product = get_object_or_404(Product, id=product_id)
 
-    # В будущем здесь можно будет принимать количество из формы
-    cart.add(product=product, quantity=1)
+    #Получаем количество из формы (с дефолтом 1)
+    quantity = int(request.POST.get('quantity', 1))
 
+    # В будущем здесь можно будет принимать количество из формы
+    cart.add(product=product, quantity=quantity)
     return redirect('orders:cart_detail')
 
+@require_POST
 def cart_remove(request, product_id: int):
     """Controller to remove an item from the cart."""
     cart = Cart(request)
